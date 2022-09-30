@@ -27,11 +27,75 @@
                 <ul class="main-menu">
                     <li>
                         <a href="#" class="main-menu-list">쇼핑</a>
+                        <ul class="main-menu-dropdown-contents">
+                            <li>
+                                <a href="#" class="inner-link">전제품</a>
+                                <ul class="shopping-dropdown-contents">
+                                    <li><a href="#">모든 상품</a></li>
+                                    <li><a href="#">베스트 상품</a></li>
+                                    <li><a href="#">세트 상품</a></li>
+                                    <li><a href="#">할인 상품</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="inner-link">유형별</a>
+                                <ul class="shopping-dropdown-contents">
+                                    <li><a href="#">토너/미스트</a></li>
+                                    <li><a href="#">에센스/앰플</a></li>
+                                    <li><a href="#">로션/크림</a></li>
+                                    <li><a href="#">클렌징/스크럽</a></li>
+                                    <li><a href="#">마스크/팩</a></li>
+                                    <li><a href="#">선 케어</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="inner-link">고민별</a>
+                                <ul class="shopping-dropdown-contents">
+                                    <li><a href="#">수분/보습</a></li>
+                                    <li><a href="#">민감/진정</a></li>
+                                    <li><a href="#">영양/보호</a></li>
+                                    <li><a href="#">각질/결</a></li>
+                                    <li><a href="#">자외선 차단</a></li>
+                                    <li><a href="#">포 맨</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="inner-link">라인별</a>
+                                <ul class="shopping-dropdown-contents">
+                                    <li><a href="#">1025 독도</a></li>
+                                    <li><a href="#">365 데일리</a></li>
+                                    <li><a href="#">자작나무 수분</a></li>
+                                    <li><a href="#">해풍 쑥 진정</a></li>
+                                    <li><a href="#">약콩 영양</a></li>
+                                    <li><a href="#">소나무 시카</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
                     <li>
                         <a href="#" class="main-menu-list">이벤트</a>
+                        <ul class="main-menu-dropdown-contents">
+                            <li>
+                                <a href="#" class="inner-link">진행중</a>
+                            </li>
+                            <li>
+                                <a href="#" class="inner-link">종료</a>
+                            </li>
+                            <li>
+                                <a href="#" class="inner-link">참여하기</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#" class="main-menu-list">브랜드소개</a>
+                        <ul class="main-menu-dropdown-contents">
+                            <li>
+                                <a href="#" class="inner-link">스토리</a>
+                            </li>
+                            <li>
+                                <a href="#" class="inner-link">라인소개</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#" class="main-menu-list">라운드랩소식</a>
@@ -41,6 +105,17 @@
                     </li>
                     <li>
                         <a href="#" class="main-menu-list">고객센터</a>
+                        <ul class="main-menu-dropdown-contents">
+                            <li>
+                                <a href="#" class="inner-link">공지사항</a>
+                            </li>
+                            <li>
+                                <a href="#" class="inner-link">FAQ</a>
+                            </li>
+                            <li>
+                                <a href="#" class="inner-link">Q&A</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </nav>
@@ -96,135 +171,55 @@
                     </li>
                 </ul>
             </div>
-        </div>
-        <div class="main-menu-dropdown-container">
-            <ul class="main-menu-dropdown-contents">
-                <li>
-                    <a href="#" class="inner-link">전제품</a>
-                    <ul class="shopping-dropdown-contents">
-                        <li><a href="#">모든 상품</a></li>
-                        <li><a href="#">베스트 상품</a></li>
-                        <li><a href="#">세트 상품</a></li>
-                        <li><a href="#">할인 상품</a></li>
+            <div class="hamburger-menu-container">
+                <div class="hamburger-menu-wrapper">
+                    <ul>
+                        <li>
+                            <a href="#" class="menu-list">내정보</a>
+                        </li>
+                        <li>
+                            <a href="#" class="menu-list">로그인</a>
+                        </li>
+                        <li>
+                            <a href="#" class="menu-list">회원가입</a>
+                        </li>
                     </ul>
-                </li>
-                <li>
-                    <a href="#" class="inner-link">유형별</a>
-                    <ul class="shopping-dropdown-contents">
-                        <li><a href="#">토너/미스트</a></li>
-                        <li><a href="#">에센스/앰플</a></li>
-                        <li><a href="#">로션/크림</a></li>
-                        <li><a href="#">클렌징/스크럽</a></li>
-                        <li><a href="#">마스크/팩</a></li>
-                        <li><a href="#">선 케어</a></li>
+                    <ul>
+                        <li>
+                            <input type="checkbox" id="lb-shopping" class="hamburger-accordion">
+                            <label for="lb-shopping" class="menu-list">쇼핑</label>
+                            <ul class="shopping-list">
+                                <li><a href="#">전제품</a></li>
+                                <li><a href="#">유형별</a></li>
+                                <li><a href="#">고민별</a></li>
+                                <li><a href="#">라인별</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="menu-list">이벤트</a>
+                        </li>
+                        <li>
+                            <a href="#" class="menu-list">브랜드 소개</a>
+                        </li>
+                        <li>
+                            <a href="#" class="menu-list">라운드랩 소식</a>
+                        </li>
+                        <li>
+                            <a href="#" class="menu-list">리뷰</a>
+                        </li>
+                        <li>
+                            <a href="#" class="menu-list">고객센터</a>
+                        </li>
                     </ul>
-                </li>
-                <li>
-                    <a href="#" class="inner-link">고민별</a>
-                    <ul class="shopping-dropdown-contents">
-                        <li><a href="#">수분/보습</a></li>
-                        <li><a href="#">민감/진정</a></li>
-                        <li><a href="#">영양/보호</a></li>
-                        <li><a href="#">각질/결</a></li>
-                        <li><a href="#">자외선 차단</a></li>
-                        <li><a href="#">포 맨</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" class="inner-link">라인별</a>
-                    <ul class="shopping-dropdown-contents">
-                        <li><a href="#">1025 독도</a></li>
-                        <li><a href="#">365 데일리</a></li>
-                        <li><a href="#">자작나무 수분</a></li>
-                        <li><a href="#">해풍 쑥 진정</a></li>
-                        <li><a href="#">약콩 영양</a></li>
-                        <li><a href="#">소나무 시카</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="main-menu-dropdown-contents">
-                <li>
-                    <a href="#" class="inner-link">진행중</a>
-                </li>
-                <li>
-                    <a href="#" class="inner-link">종료</a>
-                </li>
-                <li>
-                    <a href="#" class="inner-link">참여하기</a>
-                </li>
-            </ul>
-            <ul class="main-menu-dropdown-contents">
-                <li>
-                    <a href="#" class="inner-link">스토리</a>
-                </li>
-                <li>
-                    <a href="#" class="inner-link">라인소개</a>
-                </li>
-            </ul>
-            <ul class="main-menu-dropdown-contents">
-                <li>
-                    <a href="#" class="inner-link">공지사항</a>
-                </li>
-                <li>
-                    <a href="#" class="inner-link">FAQ</a>
-                </li>
-                <li>
-                    <a href="#" class="inner-link">Q&A</a>
-                </li>
-            </ul>
-        </div>
-
-
-
-
-        <div class="hamburger-menu-container">
-            <div class="hamburger-menu-wrapper">
-                <ul>
-                    <li>
-                        <a href="#" class="menu-list">내정보</a>
-                    </li>
-                    <li>
-                        <a href="#" class="menu-list">로그인</a>
-                    </li>
-                    <li>
-                        <a href="#" class="menu-list">회원가입</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                        <input type="checkbox" id="lb-shopping" class="hamburger-accordion">
-                        <label for="lb-shopping" class="menu-list">쇼핑</label>
-                        <ul class="shopping-list">
-                            <li><a href="#">전제품</a></li>
-                            <li><a href="#">유형별</a></li>
-                            <li><a href="#">고민별</a></li>
-                            <li><a href="#">라인별</a></li>
+                    <div>
+                        <input type="checkbox" id="lb-lang" class="hamburger-accordion">
+                        <label for="lb-lang" class="menu-list">언어</label>
+                        <ul class="lang-list">
+                            <li><a href="#">한국어</a></li>
+                            <li><a href="#">English</a></li>
+                            <li><a href="#">中文</a></li>
                         </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="menu-list">이벤트</a>
-                    </li>
-                    <li>
-                        <a href="#" class="menu-list">브랜드 소개</a>
-                    </li>
-                    <li>
-                        <a href="#" class="menu-list">라운드랩 소식</a>
-                    </li>
-                    <li>
-                        <a href="#" class="menu-list">리뷰</a>
-                    </li>
-                    <li>
-                        <a href="#" class="menu-list">고객센터</a>
-                    </li>
-                </ul>
-                <div>
-                    <input type="checkbox" id="lb-lang" class="hamburger-accordion">
-                    <label for="lb-lang" class="menu-list">언어</label>
-                    <ul class="lang-list">
-                        <li><a href="#">한국어</a></li>
-                        <li><a href="#">English</a></li>
-                        <li><a href="#">中文</a></li>
-                    </ul>
+                    </div>
                 </div>
             </div>
         </div>
