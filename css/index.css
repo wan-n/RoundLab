@@ -12,7 +12,6 @@
 
 body{
     font-family: 'Noto Sans KR', sans-serif;
-    background-color: var(--main-color);
 }
 
 
@@ -24,16 +23,15 @@ header{
     width: 100%;
     height: 60px;
     background-color: rgba(255, 255, 255, .3);
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.20);
     border-bottom: 0 solid var(--light-gray);
     box-sizing: border-box;
     transition: .3s;
-    z-index: 10;
+    z-index: 100;
 }
 
 header:hover{
     background-color: #fff;
-    border-bottom: 1px solid var(--light-gray);
 }
 
 .main-menu-wrapper{
@@ -84,7 +82,8 @@ header:hover{
     top: 100%;
     left: 0;
     background-color: #fff;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+    border-top: 0px solid var(--light-gray);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.20);
     box-sizing: border-box;
     overflow: hidden;
     opacity: 0;
@@ -128,6 +127,7 @@ header:hover{
 .main-nav-wrapper:hover .main-nav-dropdown-container{
     height: 250px;
     opacity: 1;
+    border-top: 1px solid var(--light-gray);
 }
 
 .main-nav-wrapper:hover .inner-list{
@@ -220,7 +220,7 @@ header:hover{
     width: 716px;
     height: 118px;
     background-color: rgba(255, 255, 255, .5);
-    box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.20);
     border-radius: 20px;
 }
 
@@ -288,7 +288,7 @@ header:hover{
     right: 20px;
     box-sizing: border-box;
     background-color: rgba(255, 255, 255, .5);
-    box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.20);
     border-radius: 20px;
     text-align: center;
 }
@@ -335,9 +335,99 @@ header:hover{
 
 
 
-
+/* 브랜드 소개 */
 #brand-intro{
+    position: relative;
     width: 100%;
     height: 100vh;
-    margin-top: 500px;
+}
+
+#brand-intro li{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: none;
+    background-position: top center;
+}
+
+
+.intro-one{
+    background-image: linear-gradient(to right, rgba(0, 0, 0, .3), transparent 50%), url(../img/intro01.jpg);
+}
+
+.intro-two{
+    z-index: -1;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, .3), transparent 50%), url(../img/intro02.jpg);
+}
+
+.intro-three{
+    z-index: -1;
+    background-image: linear-gradient(to left, rgba(0, 0, 0, .3), transparent 50%), url(../img/intro03.jpg);
+}
+
+
+.intro-one .intro-text-box{
+    margin-left: 4%;
+}
+
+.intro-two .intro-text-box{
+    margin-left: 4%;
+}
+
+.intro-three .intro-text-box{
+    margin-left: 50%;
+}
+
+
+#brand-intro a{ 
+    display: block;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#brand-intro h2{
+    color: #fff;
+    font-size: 60px;
+    font-weight: bold;
+}
+
+#brand-intro h2::after{
+    content: '';
+    display: block;
+    width: 100px;
+    height: 2px;
+    background-color: #fff;
+    margin: 16px 0 32px 0;
+}
+
+#brand-intro p{
+    color: #fff;
+    font-size: 30px;
+    line-height: 1.2;
+}
+
+#brand-intro p span{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* 제품 라인 소개 */
+#item-line{
+    margin-top: 300px;
 }
