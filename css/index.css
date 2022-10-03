@@ -4,10 +4,14 @@
     --light-gray: #eee;
     --gray: #bbb;
     --line-daily: #d5eef5;
+    --dokdo-line: #43749f;
+    --sun-care-line: #914144;
+    --local-line: #39461b;
     --text-gray: #777;
     --min-width-pc: 1216px;
     --min-width-tab: 770px;
     --min-width-mob: 328px;
+    --gap-pc: 16px;
 }
 
 body{
@@ -418,16 +422,118 @@ header:hover{
 
 
 
-
-
-
-
-
-
-
-
-
 /* 제품 라인 소개 */
 #item-line{
     margin-top: 300px;
 }
+
+.introduce-line-wrapper{
+    width: var(--min-width-pc);
+    margin: 0 auto;
+}
+
+
+.introduce-line-wrapper ul{
+    display: flex;
+    flex-direction: column;
+    gap: 150px;
+}
+
+.dokdo-line-container, .sun-care-line-container, .local-line-container{
+    display: flex;
+    align-items: center;
+    gap: 70px;
+}
+
+.line-img-box, .line-img-box img{
+    width: 600px;
+    height: auto;
+}
+
+.keywords{
+    display: none;
+}
+
+.line-text-box h2{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.line-text-box h2::after{
+    content: '';
+    display: block;
+    background-color: var(--gray);
+    width: 100px;
+    height: 2px;
+    margin-top: 16px;
+    margin-bottom: 32px;
+}
+
+
+.sun-care-line-container{
+    flex-direction: row-reverse;
+}
+
+.sun-care-line-container .line-text-box{
+    text-align: right;
+}
+
+.sun-care-line-container .line-text-box h2::after{
+    margin: 16px 0 32px auto;
+}
+
+.keyword-box{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.dokdo-line-container .keyword-box{
+    color: var(--dokdo-line);
+}
+
+.sun-care-line-container .keyword-box{
+    color: var(--sun-care-line);
+}
+
+.local-line-container .keyword-box{
+    color: var(--local-line);
+}
+
+.line-explanation{
+    font-size: 20px;
+    line-height: 1.3;
+    margin-top: 8px;
+}
+
+.small{
+    display: none;
+}
+
+.view-more{
+    margin-top: 50px;
+    display: block;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    width: 110px;
+    padding: 10px 0;
+    border-radius: 20px;
+}
+
+.dokdo-line-container .view-more{
+    background-color: var(--dokdo-line);
+}
+
+.sun-care-line-container .view-more{
+    background-color: var(--sun-care-line);
+    margin: 50px 0 0 auto;
+}
+
+.local-line-container .view-more{
+    background-color: var(--local-line);
+}
+
+
+
+
