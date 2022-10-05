@@ -4,6 +4,7 @@
     --light-gray: #eee;
     --gray: #bbb;
     --dark-blue: #06355e;
+    --dark-blue-opacity: rgba(6, 53, 94, .7);
     --line-daily: #d5eef5;
     --dokdo-line: #43749f;
     --sun-care-line: #914144;
@@ -17,6 +18,7 @@
 
 body{
     font-family: 'Noto Sans KR', sans-serif;
+    overflow-x: hidden;
     /* background-color: var(--main-color); */
 }
 
@@ -590,6 +592,7 @@ header:hover{
     transform: rotate(45deg);
     border-top: 2px solid var(--black);
     border-right: 2px solid var(--black);
+    margin-top: 5px;
 }
 
 
@@ -615,10 +618,11 @@ header:hover{
     align-items: center;
     width: 100px;
     height: 100px;
-    border: 1px solid var(--dark-blue);
+    border: 1px solid var(--dark-blue-opacity);
     border-radius: 50%;
     text-align: center;
     cursor: pointer;
+    box-sizing: border-box;
 }
 
 
@@ -641,7 +645,7 @@ header:hover{
 #line-products .selected-type-frame{
     width: 1088px;
     overflow: hidden;
-    margin: 30px auto 0 auto;
+    margin: 50px auto 0 auto;
 }
 
 .type-contents-wrapper{
@@ -663,7 +667,7 @@ header:hover{
     font-weight: bold;
     color: var(--dark-blue);
     padding: 6px 12px;
-    border: 2px solid rgba(6, 53, 94, .7);
+    border: 2px solid var(--dark-blue-opacity);
     border-radius: 20px;
 }
 
@@ -688,6 +692,7 @@ header:hover{
 
 .line-carousel .carousel-frame{
     overflow: hidden;
+    height: 242px;
 }
 
 .carousel-contents-wrapper, .carousel-contents-wrapper li{
@@ -700,10 +705,11 @@ header:hover{
     width: 497px;
     height: 240px;
     text-align: center;
-    box-shadow: inset 0px -1px 2px 0 rgba(0, 0, 0, 0.20);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
+    box-sizing: border-box;
 }
 
-.line-carousel .discount{
+.line-carousel .discount-img{
     position: absolute;
     width: 35px;
     height: 50px;
@@ -724,9 +730,10 @@ header:hover{
     display: flex;
 }
 
-.line-carousel img{
+.line-carousel .carousel-contents img{
     width: 240px;
     height: 240px;
+    box-sizing: border-box;
 }
 
 .line-carousel .text-box{
@@ -791,7 +798,7 @@ header:hover{
     position: absolute;
     background-color: var(--main-color);
     width: 100%;
-    height: 590px;
+    height: 600px;
     bottom : 0;
     z-index: -1;
 }
@@ -808,6 +815,7 @@ header:hover{
 /* 유형별 추천 */
 
 #category-product{
+    position: relative;
     margin-top: 300px;
 }
 
@@ -824,7 +832,7 @@ header:hover{
 }
 
 #category-product .selected-type-frame{
-    margin-top: 40px;
+    margin-top: 50px;
     overflow: hidden;
 }
 
@@ -843,6 +851,26 @@ header:hover{
     gap: var(--gap-pc);
 }
 
+.category-carousel .carousel-contents{
+    position: relative;
+}
+
+.category-carousel .discount-img{
+    position: absolute;
+    width: 35px;
+    height: 50px;
+    background-image: url(../img/discount.png);
+    background-size: 35px 50px;
+    background-repeat: no-repeat;
+    top: 0;
+    left: 12px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 35px;
+}
+
 
 .category-carousel img{
     width: 292px;
@@ -853,7 +881,7 @@ header:hover{
 
 .category-carousel .text-box{
     width: 292px; 
-    padding: 0 10px;
+    padding: 10px 16px 0 16px;
     text-align: center;
     box-sizing: border-box;
 }
@@ -863,16 +891,16 @@ header:hover{
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    height: 50px;
+    height: 64px;
     border-bottom: 1px solid var(--gray);
-    padding-bottom: 8px;
+    padding-bottom: 10px;
     box-sizing: border-box;
 }
 
 .category-carousel .product-name p{
     font-size: 16px;
-    line-height: 1.2;
-    max-height: 50px;
+    line-height: 1.5;
+    max-height: 64px;
     color: var(--black);
     text-overflow: ellipsis;
     overflow: hidden;
@@ -882,7 +910,7 @@ header:hover{
 }
 
 .category-carousel .product-price{
-    margin-top: 8px;
+    margin-top: 10px;
 }
 
 .category-carousel .discount{
@@ -900,6 +928,28 @@ header:hover{
 .category-bottom-btn{
     height: 16px;
     margin-top: 10px;
+}
+
+.category-bg-blue-one{
+    position: absolute;
+    width: 1500px;
+    height: 310px;
+    background-color: var(--main-color);
+    border-radius: 160px;
+    left: 50%;
+    bottom: 118px;
+    transform: translate(-50%);
+    z-index: -1;
+}
+
+.category-bg-blue-two{
+    position: absolute;
+    width: 100vw;
+    height: 310px;
+    background-color: var(--main-color);
+    bottom: 118px;
+    left: -50%;
+    z-index: -1;
 }
 
 
@@ -988,7 +1038,6 @@ header:hover{
     color: #fff;
     font-size: 30px;
     font-weight: bold;
-    cursor: pointer;
     opacity: 0;
     transition: .3s;
 }
@@ -997,3 +1046,109 @@ header:hover{
 .view-item:hover figcaption{
     opacity: 1;
 }
+
+
+
+
+
+/* 제품리뷰 */
+#review-container{
+    margin-top: 300px;
+    padding: 50px 0 300px 0;
+}
+
+.review-wrapper{
+    width: var(--min-width-pc);
+    margin: 0 auto;
+}
+
+.review-frame{
+    position: relative;
+    margin-top: 50px;
+    height: 602px;
+    overflow: hidden;
+}
+
+.review-contents-wrapper{
+    display: flex;
+    gap: 16px;
+}
+
+.review-contents-wrapper>li{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.review-list{
+    position: relative;
+    width: 292px;
+    height: 292px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
+}
+
+.review-img{
+    width: 292px;
+    height: 292px;
+}
+
+.review-detail-box{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, .6);
+    opacity: 0;
+    transition: .2s;
+}
+
+.review-list:hover .review-detail-box{
+    opacity: 1;
+}
+
+.review-detail-wrapper{
+    width: 220px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.review-detail-box img{
+    width: 108px;
+}
+
+.review-title{
+    color: var(--black);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.review-contents{
+    margin-top: 20px;
+    height: 140px;
+    color: var(--black);
+    font-size: 16px;
+    line-height: 1.5;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+}
+
+.review-detail-box figure{
+    margin-top: 6px;
+}
+
+.product-link{
+    display: none;
+}
+
+
+
+
+
+
