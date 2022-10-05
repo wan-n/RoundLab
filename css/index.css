@@ -638,7 +638,7 @@ header:hover{
     line-height: 85px;
 }
 
-.selected-type-frame{
+#line-products .selected-type-frame{
     width: 1088px;
     overflow: hidden;
     margin: 30px auto 0 auto;
@@ -674,10 +674,6 @@ header:hover{
     line-height: 1.4;
 }
 
-.line-contents-wrapper, .line-contents-wrapper li{
-    display: flex;
-    gap: 16px;
-}
 
 .line-carousel-wrapper{
     width: 1088px;
@@ -690,35 +686,57 @@ header:hover{
     gap: 8px;
 }
 
-.line-carousel-frame{
+.line-carousel .carousel-frame{
     overflow: hidden;
 }
 
+.carousel-contents-wrapper, .carousel-contents-wrapper li{
+    display: flex;
+    gap: var(--gap-pc);
+}
 
-.line-contents{
+.line-carousel .carousel-contents{
+    position: relative;
     width: 497px;
     height: 240px;
     text-align: center;
     box-shadow: inset 0px -1px 2px 0 rgba(0, 0, 0, 0.20);
 }
 
-.line-contents a{
+.line-carousel .discount{
+    position: absolute;
+    width: 35px;
+    height: 50px;
+    background-image: url(../img/discount.png);
+    background-size: 35px 50px;
+    background-repeat: no-repeat;
+    top: 0;
+    left: 8px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 35px;
+}
+
+
+.line-carousel .carousel-contents a{
     display: flex;
 }
 
-.line-contents img{
+.line-carousel img{
     width: 240px;
     height: 240px;
 }
 
-.line-contents-text{
+.line-carousel .text-box{
     width: 257px;
     height: 240px;
     padding: 34px 30px;
     box-sizing: border-box;
 }
 
-.product-name{
+.line-carousel .product-name{
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -728,7 +746,8 @@ header:hover{
     box-sizing: border-box;
 }
 
-.product-name p{
+.line-carousel .product-name p{
+    width: 197px;
     font-size: 16px;
     line-height: 1.2;
     max-height: 70px;
@@ -740,17 +759,17 @@ header:hover{
     -webkit-box-orient: vertical;
 }
 
-.product-price{
+.line-carousel .product-price{
     margin-top: 16px;
 }
 
-.discount{
+.line-carousel .discount{
     font-size: 14px;
     color: var(--text-gray);
     text-decoration: line-through;
 }
 
-.price, .won{
+.line-carousel .price, .line-carousel .won{
     font-size: 16px;
     font-weight: bold;
     color: var(--black);
@@ -785,6 +804,121 @@ header:hover{
 
 
 
+
+/* 유형별 추천 */
+
 #category-product{
+    margin-top: 300px;
+}
+
+.category-wrapper{
+    width: var(--min-width-pc);
+    margin: 0 auto;
+}
+
+.category-name{
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--dark-blue);
+    line-height: 85px;
+}
+
+#category-product .selected-type-frame{
+    margin-top: 40px;
+    overflow: hidden;
+}
+
+.category-carousel .arrow-btn{
+    display: none;
+}
+
+
+.category-carousel .carousel-frame{
+    width: var(--min-width-pc);
+    overflow: hidden;
+}
+
+.category-carousel .carousel-contents-wrapper{
+    display: flex;
+    gap: var(--gap-pc);
+}
+
+
+.category-carousel img{
+    width: 292px;
+    height: 292px;
+    border-radius: 20px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
+}
+
+.category-carousel .text-box{
+    width: 292px; 
+    padding: 0 10px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.category-carousel .product-name{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    height: 50px;
+    border-bottom: 1px solid var(--gray);
+    padding-bottom: 8px;
+    box-sizing: border-box;
+}
+
+.category-carousel .product-name p{
+    font-size: 16px;
+    line-height: 1.2;
+    max-height: 50px;
+    color: var(--black);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.category-carousel .product-price{
+    margin-top: 8px;
+}
+
+.category-carousel .discount{
+    font-size: 14px;
+    color: var(--text-gray);
+    text-decoration: line-through;
+}
+
+.category-carousel .price, .category-carousel .won{
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--black);
+}
+
+.category-bottom-btn{
+    height: 16px;
+    margin-top: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#best-seller-container{
     margin-top: 300px;
 }
