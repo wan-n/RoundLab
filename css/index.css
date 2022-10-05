@@ -1150,5 +1150,9 @@ header:hover{
 
 
 
-
+/* 푸터 */
+footer{
+    background-color: var(--dokdo-line);
+    border-top: 16px solid var(--main-color);
+}
 
