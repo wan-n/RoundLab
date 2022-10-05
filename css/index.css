@@ -916,9 +916,84 @@ header:hover{
 
 
 
-
-
-
+/* 베스트셀러 */
 #best-seller-container{
     margin-top: 300px;
+}
+
+.best-seller-wrapper{
+    width: var(--min-width-pc);
+    margin: 0 auto;
+}
+
+.video-box{
+    position: relative;
+    margin-top: 50px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.video-box video{
+    width: 100%;
+}
+
+.gradient-box{
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to right, transparent, rgba(0, 0, 0, .5));
+    opacity: 0;
+    transition: .3s;
+}
+
+.video-box:hover .gradient-box{
+    opacity: 1;
+}
+
+.view-item {
+    width: 320px;
+    margin-right: 50px;
+    border-radius: 50%;
+}
+
+
+.view-item figure{
+    position: relative;
+}
+
+.view-item img{
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    box-sizing: border-box;
+}
+
+.view-item figcaption{
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 308px;
+    height: 308px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, .3);
+    line-height: 308px;
+    text-align: center;
+    color: #fff;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0;
+    transition: .3s;
+}
+
+
+.view-item:hover figcaption{
+    opacity: 1;
 }
