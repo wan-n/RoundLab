@@ -10,6 +10,7 @@
     --sun-care-line: #914144;
     --local-line: #39461b;
     --text-gray: #777;
+    --shadow: rgba(0, 0, 0, .2);
     --min-width-pc: 1216px;
     --min-width-tab: 770px;
     --min-width-mob: 328px;
@@ -170,7 +171,7 @@ header:hover{
 }
 
 
-.inner-contents {
+.inner-contents { 
     display: none;
     position: absolute;
     top: 0;
@@ -613,32 +614,48 @@ header:hover{
 }
 
 .type-btn{
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
     padding-bottom: 8px;
     border-bottom: 4px solid transparent;
+    cursor: pointer;
     box-sizing: border-box;
+    transition: .2s;
 }
 
 .type-btn p{
     color: var(--text-gray);
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
+    transition: .2s;
 }
 
-.type-btn:hover{
+
+
+.type-btn.seleted-tab{
     border-bottom: 4px solid var(--dark-blue);
+    color: var(--dark-blue);
 }
+
+.type-btn.seleted-tab p{
+    font-size: 24px;
+    color: var(--dark-blue);
+}
+
+
 
 .type-btn:hover p{
     color: var(--dark-blue);
 }
 
+
+
 #line-products .selected-type-frame{
     width: 1088px;
     overflow: hidden;
-    margin: 30px auto 0 auto;
+    margin: 40px auto 0 auto;
 }
 
 .type-contents-wrapper{
@@ -648,21 +665,15 @@ header:hover{
 .products-text-box{
     text-align: center;
     background-color: #fff;
-    width: 500px;
-    padding: 20px 0;
-    border-radius: 20px;
+    width: 450px;
+    padding: 16px 0;
+    border-radius: 10px;
+    box-shadow: 0 1px 1px 0 var(--shadow);
     margin: 0 auto;
 }
 
 .hashtag-box{
-    display: flex;
-    justify-content: center;
-    gap: 4px;
-    color: var();
-}
-
-.hashtag-box span{
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     color: var(--dark-blue);
 }
@@ -670,14 +681,14 @@ header:hover{
 .products-text-box p{
     margin-top: 10px;
     font-size: 16px;
-    color: var(--black);
+    color: var(--text-gray);
     line-height: 1.4;
 }
 
 
 .line-carousel-wrapper{
     width: 1088px;
-    margin: 40px auto 0 auto;
+    margin: 20px auto 0 auto;
 }
 
 .line-carousel{
@@ -701,7 +712,7 @@ header:hover{
     width: 497px;
     height: 240px;
     text-align: center;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
+    box-shadow: 0 1px 2px 0 var(--shadow);
     box-sizing: border-box;
 }
 
@@ -784,7 +795,6 @@ header:hover{
 
 .arrow-btn img{
     width: 30px;
-    height: 50px;
     cursor: pointer;
 }
 
@@ -798,7 +808,7 @@ header:hover{
     position: absolute;
     background-color: var(--main-color);
     width: 100%;
-    height: 634px;
+    height: 614px;
     bottom : 0;
     z-index: -1;
 }
@@ -869,7 +879,7 @@ header:hover{
     width: 292px;
     height: 292px;
     border-radius: 20px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
+    box-shadow: 0 1px 2px 0 var(--shadow);
 }
 
 .category-carousel .text-box{
@@ -1077,12 +1087,14 @@ header:hover{
     position: relative;
     width: 292px;
     height: 292px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2);
+    box-shadow: 0 1px 2px 0 var(--shadow);
+    overflow: hidden;
 }
 
 .review-img{
     width: 292px;
     height: 292px;
+    transition: .2s;
 }
 
 .review-detail-box{
@@ -1101,6 +1113,10 @@ header:hover{
 
 .review-list:hover .review-detail-box{
     opacity: 1;
+}
+
+.review-list:hover .review-img{
+    transform: scale(1.1);
 }
 
 .review-detail-wrapper{
@@ -1167,14 +1183,14 @@ footer{
 }
 
 .footer-contents .contents-box{
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .footer-contents.company .contents-box, .footer-contents.bank-cs .contents-box{
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-top: 16px;
+    gap: 8px;
+    margin-top: 20px;
 }
 
 .footer-contents.company .information-link{
@@ -1189,11 +1205,11 @@ footer{
 
 .footer-contents.company dl, .footer-contents.bank-cs dl{
     display: flex;
-    gap: 8px;
+    gap: 12px;
 }
 
 .footer-contents.company dt, .footer-contents.bank-cs dt{
-    font-weight: bold;
+    font-size: 14px;
 }
 
 
@@ -1220,6 +1236,13 @@ footer{
     height: 50px;
 }
 
+
+
+
+
+
+/* 고정버튼 */
+
 .chat-btn-wrapper img, .scroll-btn img{
     width: 30px;
     height: 30px;
@@ -1236,7 +1259,7 @@ footer{
     height: 50px;
     border: 2px solid var(--dark-blue);
     border-radius: 50%;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .2);
+    box-shadow: 0 4px 4px 0 var(--shadow);
     box-sizing: border-box;
 }
 
@@ -1245,7 +1268,7 @@ footer{
     height: 50px;
     background-color: var(--dark-blue);
     border-radius: 50%;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .2);
+    box-shadow: 0 4px 4px 0 var(--shadow);
     margin-top: 8px;
     box-sizing: border-box;
     cursor: pointer;
@@ -1254,14 +1277,13 @@ footer{
 
 .fixed-btn-container{
     position: fixed;
-    bottom: 50px;
-    right: 50px;
+    bottom: 20px;
+    right: 20px;
 }
 
 .chat-btn{
     display: flex;
     flex-direction: column-reverse;
-    gap: 8px;
 }
 
 .chat-btn-accordion{
@@ -1278,14 +1300,16 @@ footer{
     background-position: center;
     background-color: var(--dark-blue);
     border-radius: 50%;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .2);
+    box-shadow: 0 4px 4px 0 var(--shadow);
     cursor: pointer;
+    transition: .3s;
 }
 
 .chat-btn-box{    
     position: relative;
-    height: 108px;
+    height: 116px;
     overflow: hidden;
+    border-radius: 25px;
 }
 
 .chat-btn-wrapper{
@@ -1294,12 +1318,13 @@ footer{
     flex-direction: column;
     gap: 8px;
     top: 0;
-    transform: translateY(110px);
+    transform: translateY(118px);
+    transition: .3s;
 }
 
-/* .chat-btn-accordion:checked .chat-btn-wrapper{
-    transform: translateY(0);
-} */
+.chat-btn-accordion:checked ~ .chat-btn-box>.chat-btn-wrapper{
+    transform: translateY(0px);
+}
 
 .chat-btn-accordion:checked + label{
     background-image: url(../img/fixed_close.png)
