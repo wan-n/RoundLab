@@ -705,7 +705,7 @@ header:hover{
     box-sizing: border-box;
 }
 
-.line-carousel .discount-img{
+/* .line-carousel .discount-img{
     position: absolute;
     width: 35px;
     height: 50px;
@@ -719,7 +719,7 @@ header:hover{
     font-weight: bold;
     text-align: center;
     line-height: 35px;
-}
+} */
 
 
 .line-carousel .carousel-contents a{
@@ -848,7 +848,7 @@ header:hover{
     position: relative;
 }
 
-.category-carousel .discount-img{
+/* .category-carousel .discount-img{
     position: absolute;
     width: 35px;
     height: 50px;
@@ -862,7 +862,7 @@ header:hover{
     font-weight: bold;
     text-align: center;
     line-height: 35px;
-}
+} */
 
 
 .category-carousel img{
@@ -1147,5 +1147,160 @@ header:hover{
 footer{
     background-color: var(--dokdo-line);
     border-top: 16px solid var(--main-color);
+    padding: 100px 0;
 }
 
+.footer-contents-wrapper{
+    display: flex;
+    justify-content: space-between;
+    width: var(--min-width-pc);
+    margin: 0 auto;
+}
+
+.footer-contents{
+    color: #fff;
+}
+
+.footer-title{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.footer-contents .contents-box{
+    font-size: 14px;
+}
+
+.footer-contents.company .contents-box, .footer-contents.bank-cs .contents-box{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.footer-contents.company .information-link{
+    color: #fff;
+    margin-left: 8px;
+}
+
+.footer-contents.company .information-link:hover{
+    text-decoration: underline;
+    text-underline-position : under;
+}
+
+.footer-contents.company dl, .footer-contents.bank-cs dl{
+    display: flex;
+    gap: 8px;
+}
+
+.footer-contents.company dt, .footer-contents.bank-cs dt{
+    font-weight: bold;
+}
+
+
+.footer-contents.bank-cs{
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+}
+
+
+.cs-tel{
+    font-size: 20px;
+}
+
+
+.footer-contents.sns .contents-box{
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.footer-contents.sns .contents-box img{
+    width: 50px;
+    height: 50px;
+}
+
+.chat-btn-wrapper img, .scroll-btn img{
+    width: 30px;
+    height: 30px;
+}
+
+.chat-btn-wrapper figure, .scroll-btn figure{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chat-btn-wrapper figure{
+    width: 50px;
+    height: 50px;
+    border: 2px solid var(--dark-blue);
+    border-radius: 50%;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .2);
+    box-sizing: border-box;
+}
+
+.scroll-btn figure{
+    width: 50px;
+    height: 50px;
+    background-color: var(--dark-blue);
+    border-radius: 50%;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .2);
+    margin-top: 8px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+
+.fixed-btn-container{
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+}
+
+.chat-btn{
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 8px;
+}
+
+.chat-btn-accordion{
+    display: none;
+}
+
+.chat-btn label{
+    display: block;
+    width: 50px;
+    height: 50px;
+    background-image: url(../img/fixed_talk.png);
+    background-repeat: no-repeat;
+    background-size: 30px;
+    background-position: center;
+    background-color: var(--dark-blue);
+    border-radius: 50%;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .2);
+    cursor: pointer;
+}
+
+.chat-btn-box{    
+    position: relative;
+    height: 108px;
+    overflow: hidden;
+}
+
+.chat-btn-wrapper{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    top: 0;
+    transform: translateY(110px);
+}
+
+/* .chat-btn-accordion:checked .chat-btn-wrapper{
+    transform: translateY(0);
+} */
+
+.chat-btn-accordion:checked + label{
+    background-image: url(../img/fixed_close.png)
+}
