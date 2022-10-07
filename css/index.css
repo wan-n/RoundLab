@@ -933,27 +933,19 @@ header:hover{
     margin-top: 10px;
 }
 
-.category-bg-blue-one{
+
+.category-bg-blue{
     position: absolute;
-    width: 1500px;
+    width: calc(50vw + 750px);
     height: 310px;
     background-color: var(--main-color);
-    border-radius: 160px;
-    left: 50%;
+    border-top-right-radius: 160px;
+    border-bottom-right-radius : 160px;
+    left: 0;
     bottom: 118px;
-    transform: translate(-50%);
     z-index: -1;
 }
 
-.category-bg-blue-two{
-    position: absolute;
-    width: 100vw;
-    height: 310px;
-    background-color: var(--main-color);
-    bottom: 118px;
-    left: -50%;
-    z-index: -1;
-}
 
 
 
@@ -1106,7 +1098,7 @@ header:hover{
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(255, 255, 255, .6);
+    background-color: rgba(255, 255, 255, .8);
     opacity: 0;
     transition: .2s;
 }
