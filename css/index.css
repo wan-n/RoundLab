@@ -1178,7 +1178,7 @@ header:hover{
     left: 0;
     background-color: rgba(255, 255, 255, .8);
     opacity: 0;
-    transition: .2s;
+    transition: .3s;
     padding: 0 40px;
     box-sizing: border-box;
 }
@@ -1197,10 +1197,11 @@ header:hover{
     align-items: center;
     gap: 10px;
     text-align: center;
+    transition: .3s;
 }
 
 .review-summary figure{
-    margin-top: 4px;
+    margin-top: 8px;
 }
 
 .review-summary img{
@@ -1624,6 +1625,23 @@ footer{
 
     .review-contents-wrapper>li{
         gap: var(--gap-tab);
+    }
+
+    .review-detail-box{
+        opacity: 1;
+        transform: translateY(300px);
+    }
+
+    .review-detail-wrapper{
+        transform: translateY(-62px);
+    }
+
+    .review-list:hover .review-detail-box{
+        transform: translateY(0);
+    }
+
+    .review-list:hover .review-detail-wrapper{
+        transform: translateY(0);
     }
 }
 
