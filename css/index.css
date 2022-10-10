@@ -847,16 +847,19 @@ header:hover{
     position: absolute;
     display: flex;
     justify-content: space-between;
-    width: calc(var(--min-width-pc) + 50px);
+    width: calc(var(--min-width-pc) + 60px);
     left: 50%;
     transform: translateX(-50%);
     bottom: 190px;
     z-index: 5;
 }
 
-.line-carousel .arrow-btn img{
-    width: 30px;
+.arrow-btn img{
+    width: 60px;
+    height: 60px;
     cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
 }
 
 .line-bottom-btn{
@@ -1082,6 +1085,7 @@ header:hover{
 
 .view-item {
     width: 320px;
+    height: 320px;
     margin-right: 50px;
     border-radius: 50%;
 }
@@ -1460,9 +1464,9 @@ footer{
         height: 220px;
     }
 
-    .arrow-btn{
-        width: calc(934px + 50px);
-        bottom: 174px;
+    .line-carousel .arrow-btn{
+        width: calc(934px + 60px);
+        bottom: 168px;
     }
 
     .line-bg-blue{
@@ -1575,14 +1579,9 @@ footer{
     .category-carousel .arrow-btn{
         position: absolute;
         display: flex;
-        width: calc(916px + 50px);
+        width: calc(916px + 60px);
         justify-content: space-between;
         bottom: 240px;
-    }
-
-    .category-carousel .arrow-btn img{
-        width: 36px;
-        height: auto;
     }
 
     .category-carousel .text-box{
@@ -1602,11 +1601,11 @@ footer{
     /* 베스트셀러 */
     #best-seller-container{
         padding: 0 32px;
+        min-width: 300px;
     }
 
     .best-seller-wrapper{
         width: 100%;
-        min-width: var(--min-width-mob);
     }
 
     .video-box video{
@@ -1723,9 +1722,9 @@ footer{
         height: 280px;
     }
 
-    .arrow-btn{
+    .line-carousel .arrow-btn{
         width: calc(630px + 80px);
-        bottom: 347px;
+        bottom: 344px;
     }
 
     .line-bg-blue{
@@ -1772,8 +1771,8 @@ footer{
     }
 
     .category-carousel .arrow-btn{
-        width: calc(var(--min-width-tab) + 50px);
-        bottom: 306px;
+        width: calc(var(--min-width-tab) + 60px);
+        bottom: 300px;
     }
 
     .category-bg-blue{
@@ -1922,9 +1921,9 @@ footer{
         height: 200px;
     }
 
-    .arrow-btn{
-        width: calc(450px + 50px);
-        bottom: 286px;
+    .line-carousel .arrow-btn{
+        width: calc(450px + 90px);
+        bottom: 284px;
     }
 
     .line-bg-blue{
@@ -1954,8 +1953,8 @@ footer{
     }
 
     .category-carousel .arrow-btn{
-        width: calc(375px + 50px);
-        bottom: 306px;
+        width: calc(375px + 90px);
+        bottom: 300px;
     }
 
     .category-bg-blue{
@@ -1970,6 +1969,10 @@ footer{
     /* 베스트셀러 */
     #best-seller-container{
         padding: 0 16px;
+    }
+
+    .gradient-box{
+        display: none;
     }
 
 
@@ -2193,13 +2196,14 @@ footer{
         font-size: 14px;
     }
 
-    .arrow-btn{
+    .line-carousel .arrow-btn{
+        display: none;
         width: calc(var(--min-width-mob) + 30px);
         bottom: 214px;
     }
 
     .line-carousel .arrow-btn img{
-        width: 20px;
+        width: 30px;
     }
 
     .line-bg-blue{
@@ -2266,12 +2270,13 @@ footer{
     }
 
     .category-carousel .arrow-btn{
+        display: none;
         width: calc(var(--min-width-mob) + 30px);
         bottom: 274px;
     }
 
     .category-carousel .arrow-btn img{
-        width: 20px;
+        width: 30px;
     }
 
     .category-bg-blue{
@@ -2282,4 +2287,32 @@ footer{
 
 
     
+}
+
+
+
+@media screen and (max-width: 360px){
+    /* 제품 라인 소개 */
+    #item-line{
+        min-width: 300px;
+    }
+
+    .line-text-box h2{
+        font-size: 20px;
+    }
+
+    .line-text-box h2::after{
+        margin: 10px 0;
+        width: 50px;
+    }
+
+    .line-explanation{
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+    .keywords{
+        font-size: 14px;
+        gap: 10px;
+    }
 }
