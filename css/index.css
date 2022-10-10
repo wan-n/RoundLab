@@ -21,6 +21,7 @@
 body{
     font-family: 'Noto Sans KR', sans-serif;
     overflow-x: hidden;
+    min-width: 300px;
 }
 
 
@@ -1601,7 +1602,6 @@ footer{
     /* 베스트셀러 */
     #best-seller-container{
         padding: 0 32px;
-        min-width: 300px;
     }
 
     .best-seller-wrapper{
@@ -2293,9 +2293,6 @@ footer{
 
 @media screen and (max-width: 360px){
     /* 제품 라인 소개 */
-    #item-line{
-        min-width: 300px;
-    }
 
     .line-text-box h2{
         font-size: 20px;
