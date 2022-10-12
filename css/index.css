@@ -22,7 +22,7 @@
 body{
     font-family: 'Noto Sans KR', sans-serif;
     overflow-x: hidden;
-    min-width: 300px;
+    min-width: 360px;
 }
 
 
@@ -951,6 +951,7 @@ header:hover{
     position: relative;
     margin-top: 300px;
     padding: 0 32px;
+    overflow: hidden;
 }
 
 .category-wrapper{
@@ -1372,8 +1373,9 @@ footer{
 }
 
 
-.cs-tel{
+.cs-tel a{
     font-size: 20px;
+    color: #fff;
 }
 
 
@@ -2087,7 +2089,6 @@ footer{
 
     .footer-contents-wrapper{
         width: 100%;
-        min-width: var(--min-width-tab);
         flex-direction: column-reverse;
         justify-content: center;
         gap: 40px;
@@ -2371,30 +2372,10 @@ footer{
     }
 
 
+    /* 베스트셀러 */
+    .video-box{
+        border-radius: 0;
+        overflow: hidden;
+    }
     
-}
-
-
-
-@media screen and (max-width: 360px){
-    /* 제품 라인 소개 */
-
-    .line-text-box h2{
-        font-size: 20px;
-    }
-
-    .line-text-box h2::after{
-        margin: 10px 0;
-        width: 50px;
-    }
-
-    .line-explanation{
-        font-size: 14px;
-        white-space: nowrap;
-    }
-
-    .keywords{
-        font-size: 14px;
-        gap: 10px;
-    }
 }
