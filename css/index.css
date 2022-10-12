@@ -807,7 +807,7 @@ header:hover{
 
 .line-carousel .carousel-frame{
     width: var(--min-width-pc);
-    height: 262px;
+    height: 260px;
     overflow: hidden;
 }
 
@@ -909,7 +909,7 @@ header:hover{
     width: calc(var(--min-width-pc) + 60px);
     left: 50%;
     transform: translateX(-50%);
-    bottom: 190px;
+    bottom: 188px;
     z-index: 5;
 }
 
@@ -930,7 +930,7 @@ header:hover{
     position: absolute;
     background-color: var(--main-color);
     width: 100%;
-    height: 636px;
+    height: 634px;
     left: 0;
     bottom : 0;
     z-index: -1;
@@ -1201,7 +1201,7 @@ header:hover{
 
 .review-frame{
     margin-top: 50px;
-    height: 602px;
+    height: 600px;
     overflow: hidden;
 }
 
@@ -1500,12 +1500,12 @@ footer{
 @media screen and (max-width:1400px) {
     /* 라인별 제품추천 */
     #line-products .selected-type-frame{
-        width: 934px;
+        width: 936px;
     }
     
     .line-carousel .carousel-frame{
-        width: 934px;
-        height: 222px;
+        width: 936px;
+        height: 220px;
     }
 
     .line-carousel .carousel-contents{
@@ -1525,7 +1525,7 @@ footer{
     }
 
     .line-carousel .arrow-btn{
-        width: calc(934px + 60px);
+        width: calc(936px + 60px);
         bottom: 168px;
     }
 
@@ -1678,7 +1678,7 @@ footer{
     }
 
     .review-frame{
-        height: 606px;
+        height: 604px;
     }
 
     .review-contents-wrapper{
@@ -1755,7 +1755,7 @@ footer{
 
     .line-carousel .carousel-frame{
         width: 630px;
-        height: 572px;
+        height: 570px;
     }
 
     .line-carousel .carousel-contents-wrapper>li{
@@ -1782,11 +1782,11 @@ footer{
 
     .line-carousel .arrow-btn{
         width: calc(630px + 80px);
-        bottom: 344px;
+        bottom: 342px;
     }
 
     .line-bg-blue{
-        height: 936px;
+        height: 934px;
     }
 
 
@@ -1848,7 +1848,7 @@ footer{
     }
 
     .review-frame{
-        height: 772px;
+        height: 770px;
     }
 
     .review-list{
@@ -1966,7 +1966,7 @@ footer{
 
     .line-carousel .carousel-frame{
         width: 450px;
-        height: 412px;
+        height: 410px;
     }
 
     .line-carousel .carousel-contents{
@@ -1986,11 +1986,11 @@ footer{
 
     .line-carousel .arrow-btn{
         width: calc(450px + 90px);
-        bottom: 284px;
+        bottom: 282px;
     }
 
     .line-bg-blue{
-        height: 680px;
+        height: 678px;
     }
 
     /* 유형별 제품추천 */
@@ -2052,7 +2052,7 @@ footer{
 
     .review-frame{
         width: 676px;
-        height: 678px;
+        height: 676px;
     }
 
     .review-list{
@@ -2235,7 +2235,7 @@ footer{
 
     .line-carousel .carousel-frame{
         width: var(--min-width-mob);
-        height: 312px;
+        height: 310px;
     }
 
     .line-carousel .carousel-contents{
@@ -2284,7 +2284,7 @@ footer{
     .line-carousel .arrow-btn{
         display: none;
         width: calc(var(--min-width-mob) + 30px);
-        bottom: 214px;
+        bottom: 212px;
     }
 
     .line-carousel .arrow-btn img{
@@ -2292,7 +2292,7 @@ footer{
     }
 
     .line-bg-blue{
-        height: 530px;
+        height: 528px;
     }
 
 
