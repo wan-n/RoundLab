@@ -208,13 +208,19 @@ header:hover{
 
 
 /* 헤더 우측 아이콘 */
+.right-btns{
+    height: 100%;
+}
+
 .right-btns ul{
     display: flex;
     gap: 20px;
+    height: 100%;
 }
 
 .right-btns li{
     cursor: pointer;
+    height: 100%;
 }
 
 .search-icon, .cart-icon, .my-page-icon{
@@ -222,7 +228,7 @@ header:hover{
     height: 24px;
 }
 
-.hamburger-menu-btn{
+.hamburger-menu-btn>button{
     display: none;
     flex-direction: column;
     justify-content: center;
@@ -239,12 +245,18 @@ header:hover{
     border-radius: 2px;
 }
 
+.right-btns button{
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    height: 100%;
+}
+
 
 
 
 /* 제품 검색 */
 .search-container{
-    display: none;
     position: absolute;
     top: 110%;
     right: 0;
@@ -313,32 +325,22 @@ header:hover{
     margin-top: 4px;
 }
 
-.close-search-box{
-    position: absolute;
-    top: 16px;
-    right: 20px;
-    cursor: pointer;
-}
 
-.close-search-box img{
-    width: 16px;
-    height: 16px;
-    opacity: .8;
+.hide-box{
+    display: none;
 }
-
 
 
 /* 마이페이지 드롭다운*/
 .my-page-dropdown{
-    display: none;
     position: absolute;
     width: 130px;
     padding: 30px 24px;
     top: 110%;
-    right: 20px;
+    right: 0;
     box-sizing: border-box;
     background-color: rgba(255, 255, 255, .5);
-    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.20);
+    box-shadow: 1px 1px 2px 0 var(--shadow);
     border-radius: 20px;
     text-align: center;
 }
@@ -1716,13 +1718,12 @@ footer{
         display: none;
     }
 
-    .right-btns .hamburger-menu-btn{
+    .right-btns .hamburger-menu-btn>button{
         display: flex;
     }
 
     /* 제품검색 */
     .search-container{
-        display: none;
         width: 500px;
     }
 
