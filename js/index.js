@@ -255,8 +255,15 @@ function makeCarousel(){
 
 
 
+// 헤더 우측버튼
+const mBtn = document.querySelector('.my-page-btn-icon');
+const mContainer = document.querySelector('.my-page-dropdown');
+const sBtn = document.querySelector('.search-btn-icon');
+const sContainer = document.querySelector('.search-container');
 
 
+showContents(mBtn, mContainer);
+showContents(sBtn, sContainer);
 // mypage btn : .my-page-btn-icon, container : .my-page-dropdown
 // search btn : .search-btn-icon, container : .search-container
 
