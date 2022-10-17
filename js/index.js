@@ -2,6 +2,9 @@
 
 
 makeScrollAnimation();  //헤더 SA
+showHamburgerMenu();   //햄버거메뉴
+showSearchContents();  //검색
+showMyPageContents();  //마이페이지 드롭다운
 scrollToTop();  //스크롤 투 탑 버튼
 copyText();  //푸터 텍스트 복사
 makeIntroCarousel();   //인트로
@@ -55,6 +58,106 @@ function makeHeaderSA(lastScrollY){
     }else{
         header.classList.remove('push-up');
     }
+}
+
+function showHamburgerMenu(){
+    const btn = document.querySelector('.hamburger-menu-btn-icon');
+    const container = document.querySelector('.modal-area.hamburger-menu');
+    const menu = document.querySelector('.hamburger-menu-container');
+    const closeBtn = document.querySelector('.hamburger-menu-container .close-btn');
+    const body = document.querySelector('body');
+    const modal = document.getElementsByClassName('modal-area');
+
+    container.style.transition = '.3s'
+
+    body.addEventListener('click', (e) => {
+        if(e.target.classList.contains('modal-area')){
+            menu.classList.add('from-right-all');
+            setTimeout(() => {
+                container.classList.add('hide-box');
+            }, 300);
+        }
+    });
+
+    btn.addEventListener('click', () => {
+        if(container.classList.contains('hide-box')){
+            for(let i = 0; i < modal.length; i++){
+                if(!modal[i].classList.contains('hide-box')){
+                    modal[i].classList.add('hide-box');
+                }
+            }
+            container.classList.remove('hide-box');
+            setTimeout(() => {
+                menu.classList.remove('from-right-all');
+            }, 100);
+        }else{
+            menu.classList.add('from-right-all');
+            setTimeout(() => {
+                container.classList.add('hide-box');
+            }, 300);
+        }
+    });
+
+    closeBtn.addEventListener('click', () => {
+        menu.classList.add('from-right-all');
+            setTimeout(() => {
+                container.classList.add('hide-box');
+            }, 300);
+    });
+
+    window.onresize = () => {
+        if(window.innerWidth > 1100){
+            menu.classList.add('from-right-all');
+            setTimeout(() => {
+                container.classList.add('hide-box');
+            }, 300);
+        }
+        
+    }
+}
+
+
+function showSearchContents(){
+    const btn = document.querySelector('.search-btn-icon');
+    const container = document.querySelector('.modal-area.search');
+
+    showContents(btn, container);
+}
+
+function showMyPageContents(){
+    const btn = document.querySelector('.my-page-btn-icon');
+    const container = document.querySelector('.modal-area.my-page');
+
+    showContents(btn, container);
+    window.onresize = () => {
+        if(window.innerWidth < 1100){
+            container.classList.add('hide-box');
+        }
+    }
+}
+
+function showContents(btn, container){
+    const body = document.querySelector('body');
+    const modal = document.getElementsByClassName('modal-area');
+
+    body.addEventListener('click', (e) => {
+        if(e.target.classList.contains('modal-area')){
+            container.classList.add('hide-box');
+        }
+    });
+
+    btn.addEventListener('click', () => {
+        if(container.classList.contains('hide-box')){
+            for(let i = 0; i < modal.length; i++){
+                if(!modal[i].classList.contains('hide-box')){
+                    modal[i].classList.add('hide-box');
+                }
+            }
+            container.classList.remove('hide-box');
+        }else{
+            container.classList.add('hide-box');
+        }
+    });
 }
 
 function makeIntroCarousel(){
@@ -255,38 +358,12 @@ function makeCarousel(){
 
 
 
-// 헤더 우측버튼
-const mBtn = document.querySelector('.my-page-btn-icon');
-const mContainer = document.querySelector('.my-page-dropdown');
-const sBtn = document.querySelector('.search-btn-icon');
-const sContainer = document.querySelector('.search-container');
 
 
-showContents(mBtn, mContainer);
-showContents(sBtn, sContainer);
-// mypage btn : .my-page-btn-icon, container : .my-page-dropdown
-// search btn : .search-btn-icon, container : .search-container
 
-function showContents(eventBtn, eventContainer){
-    // 버튼 클릭 이벤트로 display 스타일 조정
-    // 버튼 재클릭 or 컨텐츠 외부 영역 클릭 시 이벤트
-    const btn = eventBtn;
-    const container = eventContainer;
-    const body = document.querySelector('body');
 
-    body.addEventListener('click', (e) => {
-        if(e.target != container && !(e.target.parentNode == btn) && !container.classList.contains('hide-box')){
-            container.classList.add('hide-box');
-            console.log('외부!');
-        }
-    });
 
-    btn.addEventListener('click', () => {
-        container.classList.toggle('hide-box');
-        console.log('버튼!');
-    });
 
-}
 
 
 
