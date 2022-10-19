@@ -949,7 +949,7 @@ header:hover{
     height: 60px;
     cursor: pointer;
     border-radius: 50%;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 2px 0 var(--shadow);
 }
 
 .line-bottom-btn{
@@ -2508,3 +2508,7 @@ footer{
     opacity: 0;
 }
 
+.scroll-disable{
+    height: 100%;
+    overflow: hidden;
+}

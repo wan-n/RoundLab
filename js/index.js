@@ -73,6 +73,7 @@ function showHamburgerMenu(){
     body.addEventListener('click', (e) => {
         if(e.target.classList.contains('modal-area')){
             menu.classList.add('from-right-all');
+            body.classList.remove('scroll-disable');
             setTimeout(() => {
                 container.classList.add('hide-box');
             }, 300);
@@ -90,8 +91,10 @@ function showHamburgerMenu(){
             setTimeout(() => {
                 menu.classList.remove('from-right-all');
             }, 100);
+            body.classList.add('scroll-disable');
         }else{
             menu.classList.add('from-right-all');
+            body.classList.remove('scroll-disable');
             setTimeout(() => {
                 container.classList.add('hide-box');
             }, 300);
@@ -100,20 +103,11 @@ function showHamburgerMenu(){
 
     closeBtn.addEventListener('click', () => {
         menu.classList.add('from-right-all');
+        body.classList.remove('scroll-disable');
             setTimeout(() => {
                 container.classList.add('hide-box');
             }, 300);
     });
-
-    window.onresize = () => {
-        if(window.innerWidth > 1100){
-            menu.classList.add('from-right-all');
-            setTimeout(() => {
-                container.classList.add('hide-box');
-            }, 300);
-        }
-        
-    }
 }
 
 
@@ -315,41 +309,6 @@ function scrollToTop() {
 
 
 
-/*
-    캐러셀 필요한 요소
-    - 프레임 너비
-    - 슬라이드 이동 길이
-    - 현재 인덱스
-    - moveChecker (transition 동안은 슬라이드가 이동하지 않게)
-    - 슬라이드 개수
-    - 좌우 버튼
-    - 라디오 버튼 컨테이너
-
-    필요 작업
-    - 하단 라디오 버튼 생성 + 색변경 클래스 추가
-    - 클론노드(슬라이드 양끝)
-    - 좌우 버튼 이벤트
-    - 라디오 버튼 컬러변경 함수(인덱스에 따라서)
-    - 슬라이드 이동 & 스킵 함수(이동거리 설정과 트랜지션 부여)
-*/
-
-  
-
-
-
-
-function makeCarousel(){
-    let slideIndex = 1;  //현재 인덱스
-    let moveChecker = true; //슬라이드 이동 가능 상태 : true
-    let frameWidth;  //프레임 가로길이
-    let moveWidth;  //슬라이드 이동 길이
-    let slideNum;  //슬라이드 개수
-
-
-    const wrapper = document.querySelector('.line-carousel .carousel-contents-wrapper');
-    const frame = document.querySelector('.line-carousel .carousel-frame');
-
-}
 
 
 
