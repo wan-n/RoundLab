@@ -323,6 +323,8 @@ function setDiscountRate(){
             discount[i].innerText = `25%`;
         }else if(discount[i].classList.contains('discount30')){
             discount[i].innerText = `30%`;
+        }else if(discount[i].classList.contains('discount40')){
+            discount[i].innerText = `40%`;
         }else if(discount[i].classList.contains('discount50')){
             discount[i].innerText = `50%`;
         }else if(discount[i].classList.contains('discount60')){
@@ -492,10 +494,6 @@ function moveLineSlide(transition, wrapper, moveWidth, slideIndex, frame){
         wrapper.style.transition = `0s`;
     }
 }
-
-
-
-
 
 
 

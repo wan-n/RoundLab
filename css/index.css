@@ -1010,7 +1010,7 @@ header:hover{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
 }
 
 
@@ -1121,7 +1121,7 @@ header:hover{
     border-top-right-radius: 160px;
     border-bottom-right-radius : 160px;
     left: 0;
-    bottom: 118px;
+    bottom: 128px;
     z-index: -1;
 }
 
@@ -1716,7 +1716,7 @@ footer{
 
     .category-bg-blue{
         width: calc(50vw + 600px);
-        bottom: 118px;
+        bottom: 128px;
     }
     
 
@@ -1898,7 +1898,7 @@ footer{
         height: 394px;
         border-top-right-radius: 200px;
         border-bottom-right-radius: 200px;
-        bottom: 136px;
+        bottom: 146px;
     }
 
 
@@ -2090,7 +2090,7 @@ footer{
         height: 394px;
         border-top-right-radius: 200px;
         border-bottom-right-radius: 200px;
-        bottom: 136px;
+        bottom: 146px;
     }
 
 
@@ -2446,7 +2446,7 @@ footer{
     .category-bg-blue{
         width: calc(50vw + 410px);
         height: 338px;
-        bottom: 121px;
+        bottom: 131px;
     }
 
 
