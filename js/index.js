@@ -10,6 +10,7 @@ copyText();  //푸터 텍스트 복사
 makeIntroCarousel();   //인트로
 makeLineTabMenu();   //라인 탭메뉴
 makeCategoryTabMenu();  //유형 탭메뉴
+setDiscountRate();   //상품 할인율 표시
 
 
 
@@ -74,6 +75,7 @@ function showHamburgerMenu(){
         if(e.target.classList.contains('modal-area')){
             menu.classList.add('from-right-all');
             body.classList.remove('scroll-disable');
+            body.style.width = `100%`
             setTimeout(() => {
                 container.classList.add('hide-box');
             }, 300);
@@ -91,10 +93,12 @@ function showHamburgerMenu(){
             setTimeout(() => {
                 menu.classList.remove('from-right-all');
             }, 100);
+            body.style.width = `${body.clientWidth}px`
             body.classList.add('scroll-disable');
         }else{
             menu.classList.add('from-right-all');
             body.classList.remove('scroll-disable');
+            body.style.width = `100%`
             setTimeout(() => {
                 container.classList.add('hide-box');
             }, 300);
@@ -104,6 +108,7 @@ function showHamburgerMenu(){
     closeBtn.addEventListener('click', () => {
         menu.classList.add('from-right-all');
         body.classList.remove('scroll-disable');
+        body.style.width = `100%`
             setTimeout(() => {
                 container.classList.add('hide-box');
             }, 300);
@@ -206,40 +211,45 @@ function makeItemLineSA(){
 
 function makeLineTabMenu(){
     const frame = document.querySelector('#line-products .selected-type-frame');
-    const contents = document.querySelector('#line-products .type-contents-wrapper');
+    const wrapper = document.querySelector('#line-products .type-contents-wrapper');
     const btn = document.getElementsByClassName('line-type-btn');
 
-    makeTabMenu(frame, contents, btn);
+    makeTabMenu(frame, wrapper, btn);
 }
 
 function makeCategoryTabMenu(){
     const frame = document.querySelector('#category-product .selected-type-frame');
-    const contents = document.querySelector('#category-product .type-contents-wrapper');
+    const wrapper = document.querySelector('#category-product .type-contents-wrapper');
     const btn = document.getElementsByClassName('category-type-btn');
 
-    makeTabMenu(frame, contents, btn);
+    makeTabMenu(frame, wrapper, btn);
 }
 
-function makeTabMenu(frameElements, contentsElements, btnElements){
+function makeTabMenu(frameElements, wrapperElements, btnElements){
     const frame = frameElements;
-    const contents = contentsElements;
+    const wrapper = wrapperElements;
     const btn = btnElements;
+    let idx = 0;
 
     btn[0].classList.add('selected-tab');
 
-    for(let index = 0; index < btn.length; index++){
-        btn[index].addEventListener('click', () => {
-            console.log(index);
-            contents.style.transform = `translateX(-${frame.clientWidth * index}px)`
-            for(let i = 0; i < btn.length; i++){
-                if(i == index){
-                    btn[i].classList.add('selected-tab');
+    for(let i = 0; i < btn.length; i++){
+        btn[i].addEventListener('click', () => {
+            wrapper.style.transform = `translateX(-${frame.clientWidth * i}px)`
+            for(let j = 0; j < btn.length; j++){
+                if(j == i){
+                    btn[j].classList.add('selected-tab');
                 }else{
-                    btn[i].classList.remove('selected-tab');
+                    btn[j].classList.remove('selected-tab');
                 }
             }
+            idx = i;
         });
     }
+
+    window.addEventListener('resize', () => {
+        wrapper.style.transform = `translateX(-${frame.clientWidth * idx}px)`
+    });
 }
 
 function makeBgSA(){
@@ -279,9 +289,9 @@ function copyText(){
         copyIcon[i].style.transition = '.3s';
         copy[i].addEventListener('click', () => {
             navigator.clipboard.writeText(copy[i].innerText).then(() => {
-                copyIcon[i].style.backgroundImage = 'url(../img/copy_ok.png)'
+                copyIcon[i].style.backgroundImage = 'url(img/copy_ok.png)'
                 setTimeout(() => {
-                    copyIcon[i].style.backgroundImage = 'url(../img/copy_icon.png)'
+                    copyIcon[i].style.backgroundImage = 'url(img/copy_icon.png)'
                 }, 1000);
             });
         });
@@ -299,12 +309,189 @@ function scrollToTop() {
 
 
 
+function setDiscountRate(){
+    const discount = document.getElementsByClassName('discount-img');
+
+    for(let i = 0; i < discount.length; i++){
+        if(discount[i].classList.contains('discount0')){
+            discount[i].style.display = 'none';
+        }else if (discount[i].classList.contains('discount10')){
+            discount[i].innerText = `10%`;
+        }else if(discount[i].classList.contains('discount20')){
+            discount[i].innerText = `20%`;
+        }else if(discount[i].classList.contains('discount25')){
+            discount[i].innerText = `25%`;
+        }else if(discount[i].classList.contains('discount30')){
+            discount[i].innerText = `30%`;
+        }else if(discount[i].classList.contains('discount50')){
+            discount[i].innerText = `50%`;
+        }else if(discount[i].classList.contains('discount60')){
+            discount[i].innerText = `60%`;
+        }else{
+            discount[i].style.display = 'none';
+        }
+    }   
+}
 
 
 
 
 
 
+
+
+
+
+/*
+    캐러셀 필요한 요소
+    - 프레임 너비
+    - 슬라이드 이동 길이
+    - 현재 인덱스
+    - moveChecker (transition 동안은 슬라이드가 이동하지 않게)
+    - 슬라이드 개수
+    - 좌우 버튼
+    - 라디오 버튼 컨테이너
+
+    필요 작업
+    - 하단 라디오 버튼 생성 + 색변경 클래스 추가
+    - 클론노드(슬라이드 양끝)
+    - 좌우 버튼 이벤트
+    - 라디오 버튼 컬러변경 함수(인덱스에 따라서)
+    - 슬라이드 이동 & 스킵 함수(이동거리 설정과 트랜지션 부여)
+*/
+
+  
+
+
+makeLineCarousel();
+
+function makeLineCarousel(){
+    const frame = document.querySelector('.line-carousel .carousel-frame');   
+    const wrapper = document.querySelectorAll('.line-carousel .carousel-contents-wrapper');
+    const radioContainer = document.getElementsByClassName('line-bottom-btn'); 
+    const prevBtn = document.querySelectorAll('.line-carousel .prev-btn');
+    const nextBtn = document.querySelectorAll('.line-carousel .next-btn');
+    const tabNum = document.getElementsByClassName('line-type-btn').length;
+    let moveWidth;  //슬라이드 이동 길이
+    let slideIndex = [];  //현재 인덱스
+    let slideNum;  //슬라이드 개수
+    let moveChecker = true; //슬라이드 이동 가능 상태 : true
+
+    
+    moveWidth = frame.clientWidth;
+    slideNum = wrapper[0].childElementCount;
+
+    for(let i = 0; i < tabNum; i++){ 
+        slideIndex[i] = 1;
+    }
+
+    //라디오버튼
+    for(let i = 0; i < tabNum; i++){   //탭메뉴 모두
+        for(let j = 0; j < slideNum; j++){    //라디오 버튼 생성
+            const radioButton = document.createElement('div');
+            radioButton.classList.add('default-radio');
+            radioContainer[i].appendChild(radioButton);
+
+            //라디오 버튼 클릭 이벤트
+            radioButton.addEventListener('click', () => {
+                slideIndex[i] = j + 1;
+                moveSlide(true, wrapper[i], moveWidth, slideIndex[i], frame);
+                selectRadio(radioContainer[i], radioNum, slideNum, slideIndex[i]);
+            });
+        }
+        radioContainer[i].firstChild.classList.add('selected-radio');
+    }
+    
+    const radioNum = radioContainer[0].childElementCount;
+
+    //슬라이드 추가(클론노드)
+    for(let i = 0; i < tabNum; i++){
+        const cloneFirst = wrapper[i].firstElementChild.cloneNode(true);
+        const cloneLast = wrapper[i].lastElementChild.cloneNode(true);
+
+        wrapper[i].insertBefore(cloneLast, wrapper[i].firstChild);
+        wrapper[i].appendChild(cloneFirst);
+        moveSlide(false, wrapper[i], moveWidth, slideIndex[i], frame);   //처음 위치 세팅
+    }
+    slideNum = wrapper[0].childElementCount;  //클론 포함
+
+
+    //좌우 버튼 이벤트
+    for(let i = 0; i < tabNum; i++){
+        //prev
+        prevBtn[i].addEventListener('click', () => {
+            if(moveChecker){
+                moveChecker = false;
+                slideIndex[i]--;
+                moveSlide(true, wrapper[i], moveWidth, slideIndex[i], frame);
+
+                selectRadio(radioContainer[i], radioNum, slideNum, slideIndex[i]);
+                
+                setTimeout(() => {
+                    moveChecker = true;
+                    if(slideIndex[i] === 0){
+                        slideIndex[i] = slideNum - 2;
+                        moveSlide(false, wrapper[i], moveWidth, slideIndex[i], frame);
+                    }
+                }, 500);
+            }
+        });
+
+        //next
+        nextBtn[i].addEventListener('click', () => {
+            if(moveChecker){
+                moveChecker = false;
+                slideIndex[i]++;
+                moveSlide(true, wrapper[i], moveWidth, slideIndex[i], frame);
+
+                selectRadio(radioContainer[i], radioNum, slideNum, slideIndex[i]);
+                
+                setTimeout(() => {
+                    moveChecker = true;
+                    if(slideIndex[i] === slideNum - 1){
+                        slideIndex[i] = 1;
+                        moveSlide(false, wrapper[i], moveWidth, slideIndex[i], frame);
+                    }
+                }, 500);
+            }
+        });
+    }
+
+    //반응형
+    window.addEventListener('resize', () => {
+        for(let i = 0; i < tabNum; i++){
+            moveSlide(false, wrapper[i], moveWidth, slideIndex[i], frame);
+        }
+    });
+
+}
+
+//라디오 버튼 컬러 변경
+function selectRadio(radioContainer, radioNum, slideNum, slideIndex){
+    for(let i = 0; i < radioNum; i++){
+            radioContainer.children[i].classList.remove('selected-radio');
+        }
+
+        if(slideIndex === slideNum - 1){
+            radioContainer.children[0].classList.add('selected-radio');
+        }else if(slideIndex === 0){
+            radioContainer.children[radioNum - 1].classList.add('selected-radio');
+        }else{
+            radioContainer.children[slideIndex - 1].classList.add('selected-radio');
+        }
+}
+
+
+//슬라이드 이동 + 트랜지션
+function moveSlide(transition, wrapper, moveWidth, slideIndex, frame){
+    moveWidth = frame.clientWidth;
+    wrapper.style.transform = `translateX(-${moveWidth * slideIndex}px)`;
+    if(transition){
+        wrapper.style.transition = `.5s`;
+    }else{
+        wrapper.style.transition = `0s`;
+    }
+}
 
 
 
