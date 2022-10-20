@@ -2374,7 +2374,12 @@ footer{
     }
 
     .line-carousel .arrow-btn{
-        display: none;
+        width: calc(var(--min-width-mob) + var(--gap-tab));
+        bottom: 160px;
+    }
+    .arrow-btn img{
+        width: 50px;
+        height: 50px;
     }
 
     .line-bg-blue{

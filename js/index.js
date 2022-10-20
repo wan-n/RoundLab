@@ -108,10 +108,10 @@ function showHamburgerMenu(){
     closeBtn.addEventListener('click', () => {
         menu.classList.add('from-right-all');
         body.classList.remove('scroll-disable');
-        body.style.width = `100%`
-            setTimeout(() => {
-                container.classList.add('hide-box');
-            }, 300);
+        body.style.width = `100%`;
+        setTimeout(() => {
+            container.classList.add('hide-box');
+        }, 300);
     });
 }
 
@@ -128,11 +128,11 @@ function showMyPageContents(){
     const container = document.querySelector('.modal-area.my-page');
 
     showContents(btn, container);
-    window.onresize = () => {
+    window.addEventListener('resize', () => {
         if(window.innerWidth < 1100){
             container.classList.add('hide-box');
         }
-    }
+    });
 }
 
 function showContents(btn, container){
