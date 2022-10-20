@@ -990,12 +990,12 @@ header:hover{
 }
 
 .category-wrapper{
-    width: var(--min-width-pc);
+    width: calc(var(--min-width-pc) + var(--gap-pc));
     margin: 0 auto;
 }
 
 #category-product .selected-type-frame{
-    width: var(--min-width-pc);
+    width: calc(var(--min-width-pc) + var(--gap-pc));
     margin-top: 50px;
     overflow: hidden;
 }
@@ -1004,12 +1004,8 @@ header:hover{
     display: flex;
 }
 
-#category-product .type-contents-wrapper>li{
-    width: var(--min-width-pc);
-    min-width: var(--min-width-pc);
-}
-
 .category-carousel{
+    width: 100%;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -1024,13 +1020,16 @@ header:hover{
 
 
 .category-carousel .carousel-frame{
-    width: var(--min-width-pc);
+    width: calc(var(--min-width-pc) + var(--gap-pc));
     overflow: hidden;
 }
 
 .category-carousel .carousel-contents-wrapper{
     display: flex;
-    gap: var(--gap-pc);
+}
+
+.category-carousel .carousel-unit{
+    padding: 0 8px;
 }
 
 .category-carousel .carousel-contents{
@@ -1516,9 +1515,10 @@ footer{
 
 .chat-btn-box{    
     position: relative;
-    height: 116px;
+    height: 0;
     overflow: hidden;
     border-radius: 25px;
+    transition: .3s;
 }
 
 .chat-btn-wrapper{
@@ -1533,6 +1533,10 @@ footer{
 
 .chat-btn-accordion:checked ~ .chat-btn-box>.chat-btn-wrapper{
     transform: translateY(0px);
+}
+
+.chat-btn-accordion:checked ~ .chat-btn-box{
+    height: 116px;
 }
 
 .chat-btn-accordion:checked + label{
@@ -1676,11 +1680,11 @@ footer{
     }
 
     .category-wrapper{
-        width: calc(908px + var(--arrow-btn));
+        width: calc(908px + var(--gap-pc) + var(--arrow-btn));
     }
 
     #category-product .selected-type-frame{
-        width: calc(908px + var(--arrow-btn));
+        width: calc(908px + var(--gap-pc) + var(--arrow-btn));
     }
 
     #category-product .type-contents-wrapper{
@@ -1689,24 +1693,19 @@ footer{
         box-sizing: border-box;
     }
 
-    #category-product .type-contents-wrapper>li{
-        width: 908px;
-        min-width: 908px;
-    }
-
     .category-carousel{
         display: flex;
         justify-content: center;
     }
 
     .category-carousel .carousel-frame{
-        width: 908px;
+        width: calc(908px + var(--gap-pc));
     }
 
     .category-carousel .arrow-btn{
         position: absolute;
         display: flex;
-        width: calc(908px + var(--arrow-btn));
+        width: calc(908px + var(--gap-pc) + var(--arrow-btn));
         justify-content: space-between;
         bottom: 240px;
     }
@@ -1859,7 +1858,7 @@ footer{
 
     /* 유형별 제품추천 */
     .category-wrapper{
-        width: calc(var(--min-width-tab) + var(--arrow-btn));
+        width: calc(var(--min-width-tab) + var(--gap-tab) + var(--arrow-btn));
     }
 
     #category-product .type-container{
@@ -1867,21 +1866,16 @@ footer{
     }
 
     #category-product .selected-type-frame{
-        width: calc(var(--min-width-tab) + var(--arrow-btn));
-    }
-
-    #category-product .type-contents-wrapper>li{
-        width: var(--min-width-tab);
-        min-width: var(--min-width-tab);
+        width: calc(var(--min-width-tab) + var(--gap-tab) + var(--arrow-btn));
     }
 
     .category-carousel .carousel-frame{
-        width: var(--min-width-tab);
+        width: calc(var(--min-width-tab) + var(--gap-tab));
         height: 495px;
     }
 
-    .category-carousel .carousel-contents-wrapper{
-        gap: var(--gap-tab);
+    .category-carousel .carousel-unit{
+        padding: 0 10px;
     }
 
     .category-carousel .carousel-contents img{
@@ -1895,9 +1889,9 @@ footer{
     }
 
     .category-carousel .arrow-btn{
-        width: calc(var(--min-width-tab) + var(--arrow-btn));
+        width: calc(var(--min-width-tab) + var(--gap-tab) + var(--arrow-btn));
         bottom: 300px;
-    }
+    } 
 
     .category-bg-blue{
         width: calc(50vw + 550px);
@@ -2075,24 +2069,19 @@ footer{
     }
 
     .category-wrapper{
-        width: calc(375px + var(--arrow-btn));
+        width: calc(375px + var(--gap-tab) + var(--arrow-btn));
     }
 
     #category-product .selected-type-frame{
-        width: calc(375px + var(--arrow-btn));
-    }
-
-    #category-product .type-contents-wrapper>li{
-        width: 375px;
-        min-width: 375px;
+        width: calc(375px + var(--gap-tab) + var(--arrow-btn));
     }
 
     .category-carousel .carousel-frame{
-        width: 375px;
+        width: calc(375px + var(--gap-tab));
     }
 
     .category-carousel .arrow-btn{
-        width: calc(375px + var(--arrow-btn));
+        width: calc(375px + var(--gap-tab) + var(--arrow-btn));
         bottom: 300px;
     }
 
@@ -2269,7 +2258,7 @@ footer{
 
     /* 라인별 제품추천 */
     .line-inner-container{
-        padding: 50px 16px;
+        padding: 50px 6px;
     }
 
     #line-products .selected-type-frame{
@@ -2389,8 +2378,12 @@ footer{
 
 
     /* 유형별 제품추천 */
+    #category-product{
+        padding: 0 6px;
+    }
+
     .category-wrapper{
-        width: var(--min-width-mob);
+        width: calc(var(--min-width-mob) + var(--gap-tab));
     }
 
     #category-product .type-container{
@@ -2399,7 +2392,7 @@ footer{
     }
 
     #category-product .selected-type-frame{
-        width: var(--min-width-mob);
+        width: calc(var(--min-width-mob) + var(--gap-tab));
     }
 
     #category-product .type-contents-wrapper{
@@ -2407,13 +2400,8 @@ footer{
         padding: 0;
     }
 
-    #category-product .type-contents-wrapper>li{
-        width: var(--min-width-mob);
-        min-width: var(--min-width-mob);
-    }
-
     .category-carousel .carousel-frame{
-        width: var(--min-width-mob);
+        width: calc(var(--min-width-mob) + var(--gap-tab));
         height: 428px;
     }
 
@@ -2451,13 +2439,14 @@ footer{
     }
 
     .category-carousel .arrow-btn{
-        display: none;
+        width: calc(var(--min-width-mob) + var(--gap-tab));
+        bottom: 260px;
     }
 
     .category-bg-blue{
         width: calc(50vw + 410px);
         height: 338px;
-        bottom: 120px;
+        bottom: 121px;
     }
 
 
