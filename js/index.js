@@ -341,27 +341,6 @@ function setDiscountRate(){
 
 
 
-
-
-
-/*
-    캐러셀 필요한 요소
-    - 프레임 너비
-    - 슬라이드 이동 길이
-    - 현재 인덱스
-    - moveChecker (transition 동안은 슬라이드가 이동하지 않게)
-    - 슬라이드 개수
-    - 좌우 버튼
-    - 라디오 버튼 컨테이너
-
-    필요 작업
-    - 하단 라디오 버튼 생성 + 색변경 클래스 추가
-    - 클론노드(슬라이드 양끝)
-    - 좌우 버튼 이벤트
-    - 라디오 버튼 컬러변경 함수(인덱스에 따라서)
-    - 슬라이드 이동 & 스킵 함수(이동거리 설정과 트랜지션 부여)
-*/
-
   
 
 
@@ -510,4 +489,30 @@ function moveLineSlide(transition, wrapper, moveWidth, slideIndex, frame){
 
 
 
+
+
+
+
+
+
+makeCategoryCarousel();
+
+
+function makeCategoryCarousel(){
+    const frame = document.querySelector('.category-carousel .carousel-frame');   
+    const wrapper = document.querySelectorAll('.category-carousel .carousel-contents-wrapper');
+    const contents = document.querySelectorAll('.category-carousel .carousel-unit');
+    const radioContainer = document.getElementsByClassName('category-bottom-btn'); 
+    const prevBtn = document.querySelectorAll('.category-carousel .prev-btn');
+    const nextBtn = document.querySelectorAll('.category-carousel .next-btn');
+    const tabNum = document.getElementsByClassName('category-type-btn').length;
+    let moveWidth;  //슬라이드 이동 길이
+    let slideIndex = [];  //현재 인덱스
+    let slideNum;  //슬라이드 개수
+    let moveChecker = true; //슬라이드 이동 가능 상태 : true
+
+
+
+
+}
 
