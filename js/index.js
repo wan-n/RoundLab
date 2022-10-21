@@ -494,7 +494,6 @@ function moveLineSlide(transition, wrapper, moveWidth, slideIndex, frame){
 
 
 
-
 makeCategoryCarousel();
 
 
@@ -506,13 +505,128 @@ function makeCategoryCarousel(){
     const prevBtn = document.querySelectorAll('.category-carousel .prev-btn');
     const nextBtn = document.querySelectorAll('.category-carousel .next-btn');
     const tabNum = document.getElementsByClassName('category-type-btn').length;
+    const cloneNum = 3;
     let moveWidth;  //슬라이드 이동 길이
+    let diffWidth;  //추가 이동 길이
     let slideIndex = [];  //현재 인덱스
     let slideNum;  //슬라이드 개수
     let moveChecker = true; //슬라이드 이동 가능 상태 : true
+    let state = true;
+
+    
+    moveWidth = frame.clientWidth;
 
 
+    if(wrapper[0].scrollWidth % moveWidth > 0){
+        slideNum = parseInt(wrapper[0].scrollWidth / moveWidth) + 1;
+        diffWidth = parseInt(wrapper[0].scrollWidth - frame.clientWidth * (slideNum - 1));
+        state = true;
+    }else{
+        slideNum = parseInt(wrapper[0].scrollWidth / moveWidth);
+        diffWidth = 0;
+        state = false;
+    }
+    
 
+    for(let i = 0; i < tabNum; i++){ 
+        slideIndex[i] = 1;
+    }
+
+    //라디오버튼
+    for(let i = 0; i < tabNum; i++){   //탭메뉴 모두
+        for(let j = 0; j < slideNum; j++){    //라디오 버튼 생성
+            const radioButton = document.createElement('div');
+            radioButton.classList.add('default-radio');
+            radioContainer[i].appendChild(radioButton);
+
+            //라디오 버튼 클릭 이벤트
+            radioButton.addEventListener('click', () => {
+                slideIndex[i] = j + 1;
+                moveCategorySlide(true, wrapper[i], moveWidth, slideIndex[i], frame, contents[0].clientWidth, cloneNum, state, diffWidth, slideNum);
+                selectRadio(radioContainer[i], radioNum, slideNum, slideIndex[i]);
+            });
+        }
+        radioContainer[i].firstChild.classList.add('selected-radio');
+    }
+    
+    const radioNum = radioContainer[0].childElementCount;
+
+    //슬라이드 추가(클론노드)
+    for(let i = 0; i < tabNum; i++){
+
+        
+        wrapper[i].style.transform = `translateX(-${contents[0].clientWidth * cloneNum}px)`;   //처음 위치 세팅
+    }
+    slideNum = slideNum + 2; ;  //클론 포함
+
+
+    //좌우 버튼 이벤트
+    for(let i = 0; i < tabNum; i++){
+        //prev
+        prevBtn[i].addEventListener('click', () => {
+            if(moveChecker){
+                moveChecker = false;
+                slideIndex[i]--;
+                moveCategorySlide(true, wrapper[i], moveWidth, slideIndex[i], frame, contents[0].clientWidth, cloneNum, state, diffWidth, slideNum);
+
+                selectRadio(radioContainer[i], radioNum, slideNum, slideIndex[i]);
+                
+                setTimeout(() => {
+                    moveChecker = true;
+                    if(slideIndex[i] === 0){
+                        slideIndex[i] = slideNum - 2;
+                        moveCategorySlide(false, wrapper[i], moveWidth, slideIndex[i], frame, contents[0].clientWidth, cloneNum, state, diffWidth, slideNum);
+                    }
+                }, 500);
+            }
+        });
+
+        //next
+        nextBtn[i].addEventListener('click', () => {
+            if(moveChecker){
+                moveChecker = false;
+                slideIndex[i]++;
+                moveCategorySlide(true, wrapper[i], moveWidth, slideIndex[i], frame, contents[0].clientWidth, cloneNum, state, diffWidth, slideNum);
+
+                selectRadio(radioContainer[i], radioNum, slideNum, slideIndex[i]);
+                
+                setTimeout(() => {
+                    moveChecker = true;
+                    if(slideIndex[i] === slideNum - 1){
+                        slideIndex[i] = 1;
+                        moveCategorySlide(false, wrapper[i], moveWidth, slideIndex[i], frame, contents[0].clientWidth, cloneNum, state, diffWidth, slideNum);
+                    }
+                }, 500);
+            }
+        });
+    }
+
+    //반응형
+    window.addEventListener('resize', () => {
+        for(let i = 0; i < tabNum; i++){
+            moveCategorySlide(false, wrapper[i], moveWidth, slideIndex[i], frame, contents[0].clientWidth, cloneNum, state, diffWidth, slideNum);
+        }
+    });
 
 }
+
+
+//슬라이드 이동 + 트랜지션
+function moveCategorySlide(transition, wrapper, moveWidth, slideIndex, frame, contents, cloneNum, state, diffWidth, slideNum){
+    moveWidth = frame.clientWidth;
+    if(state && slideIndex >= slideNum - 2){
+        wrapper.style.transform = `translateX(-${contents * cloneNum + moveWidth * (slideIndex - 2) + diffWidth}px)`;
+    }else if(slideIndex == 0){
+        wrapper.style.transform = `translateX(-${contents * cloneNum - moveWidth}px)`;
+    }else{
+        wrapper.style.transform = `translateX(-${contents * cloneNum + moveWidth * (slideIndex - 1)}px)`;
+    }
+    
+    if(transition){
+        wrapper.style.transition = `.5s`;
+    }else{
+        wrapper.style.transition = `0s`;
+    }
+}
+
 
