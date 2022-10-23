@@ -622,14 +622,25 @@ function makeProductElements(){
 makeCategoryCarousel();
 
 function makeCategoryCarousel(){
-    const wrapper = document.querySelectorAll('.category-carousel .carousel-contents-wrapper')
+    const wrapper = document.querySelectorAll('.category-carousel .carousel-contents-wrapper');
+    const radioContainer = document.querySelectorAll('.category-carousel .category-bottom-btn');
+    const frame = document.querySelector('.category-carousel .carousel-frame');
+    const tabNum = document.getElementsByClassName('category-type-btn').length;
+    const prevBtn = document.querySelectorAll('.category-carousel .prev-btn');
+    const nextBtn = document.querySelectorAll('.category-carousel .next-btn');
+    const item = makeProductElements();
+    let moveChecker = true;
     let unitInnerNum;   //한 프레임 안에 들어가는 상품 개수
     let unitNum = [];    //상품 묶음 개수
     let unit = document.createElement('li');
-    unit.classList.add('carousel-unit');
-    const item = makeProductElements();
     let lastWidth = window.innerWidth; 
-    let state;   //프레임 크기보다 아이템 개수가 많을경우 true
+    let originalNum = [];  //클론 전 슬라이드 개수
+    let originalWidth = [];  //클론 전 길이
+    let slideNum = [];  //슬라이드 개수
+    let slideIndex = [];   //현재 인덱스
+    let frameWidth;
+
+    unit.classList.add('carousel-unit');
 
     if(window.innerWidth > 1280){
         unitInnerNum = 4;  
@@ -641,7 +652,99 @@ function makeCategoryCarousel(){
         unitInnerNum = 1; 
     }
 
-    createUnit(item, unitInnerNum, unitNum, wrapper, unit);
+
+    createUnit(item, unitInnerNum, unitNum, wrapper, unit, slideNum, originalNum);
+
+    for(let i = 0; i < tabNum; i++){
+        originalWidth[i] = wrapper[i].scrollWidth;
+    }
+
+    //라디오 버튼 생성
+    for(let i = 0; i < tabNum; i++){
+        deleteElements(radioContainer[i]);
+        
+        for(let j = 0; j < slideNum[i]; j++){
+            const radioButton = document.createElement('div');
+            radioButton.classList.add('default-radio');
+            radioContainer[i].appendChild(radioButton);
+            
+
+            radioButton.addEventListener('click', () => {
+                slideIndex[i] = j + 1;
+                moveSlide(true, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
+                selectRadio(radioContainer[i], originalNum[i], slideNum[i], slideIndex[i]);
+            });
+        }
+    
+        //선택된 라디오 버튼에 색 변경 클래스 추가
+        radioContainer[i].firstChild.classList.add('selected-radio');
+    }
+
+    //슬라이드 추가
+    for(let i = 0; i < tabNum; i++){
+        if(slideNum[i] > originalNum[i]){
+            wrapper[i].removeChild(wrapper[i].firstChild);
+            wrapper[i].removeChild(wrapper[i].lastChild);
+        }
+        const cloneFirst = wrapper[i].firstElementChild.cloneNode(true);  
+        const cloneLast = wrapper[i].lastElementChild.cloneNode(true);
+        
+        wrapper[i].insertBefore(cloneLast, wrapper[i].firstChild);
+        wrapper[i].appendChild(cloneFirst);
+
+        //상태 초기화
+        slideIndex[i] = 1;
+        moveSlide(false, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
+        slideNum[i] = slideNum[i] + 2   //클론 포함 슬라이드 개수
+    }
+
+    
+
+    //좌우 버튼 이벤트
+    for(let i = 0; i < tabNum; i++){
+        //prev
+        prevBtn[i].addEventListener('click', () => {
+            if(moveChecker){
+                moveChecker = false;
+                slideIndex[i]--;
+                moveSlide(true, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
+
+                selectRadio(radioContainer[i], originalNum[i], slideNum[i], slideIndex[i]);
+                
+                setTimeout(() => {
+                    moveChecker = true;
+                    if(slideIndex[i] === 0){
+                        slideIndex[i] = slideNum[i] - 2;
+                        moveSlide(false, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
+                    }
+                }, 500);
+            }
+        });
+
+        //next
+        nextBtn[i].addEventListener('click', () => {
+            if(moveChecker){
+                moveChecker = false;
+                slideIndex[i]++;
+                moveSlide(true, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
+
+                selectRadio(radioContainer[i], originalNum[i], slideNum[i], slideIndex[i]);
+                
+                setTimeout(() => {
+                    moveChecker = true;
+                    if(slideIndex[i] === slideNum[i] - 1){
+                        slideIndex[i] = 1;
+                        moveSlide(false, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
+                    }
+                }, 500);
+            }
+        });
+    }
+
+
+
+
+
 
 
 
@@ -649,42 +752,213 @@ function makeCategoryCarousel(){
 
         if(lastWidth <= 1280 && window.innerWidth > 1280){
             unitInnerNum = 4;  
-            for(let i = 0; i < wrapper[0].childElementCount; i++){
+            for(let i = 0; i < tabNum; i++){
                 deleteElements(wrapper[i]);
             }
-            createUnit(item, unitInnerNum, unitNum, wrapper, unit);
+            createUnit(item, unitInnerNum, unitNum, wrapper, unit, slideNum, originalNum);
+
+            for(let i = 0; i < tabNum; i++){
+                originalWidth[i] = wrapper[i].scrollWidth;
+            }
+
+            //라디오 버튼 생성
+            for(let i = 0; i < tabNum; i++){
+                deleteElements(radioContainer[i]);
+                
+                for(let j = 0; j < slideNum[i]; j++){
+                    const radioButton = document.createElement('div');
+                    radioButton.classList.add('default-radio');
+                    radioContainer[i].appendChild(radioButton);
+                    
+
+                    radioButton.addEventListener('click', () => {
+                        slideIndex[i] = j + 1;
+                        moveSlide(true, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
+                        selectRadio(radioContainer[i], originalNum[i], slideNum[i], slideIndex[i]);
+                    });
+                }
+            
+                //선택된 라디오 버튼에 색 변경 클래스 추가
+                radioContainer[i].firstChild.classList.add('selected-radio');
+            }
+
+            //슬라이드 추가
+            for(let i = 0; i < tabNum; i++){
+                if(slideNum[i] > originalNum[i]){
+                    wrapper[i].removeChild(wrapper[i].firstChild);
+                    wrapper[i].removeChild(wrapper[i].lastChild);
+                }
+                const cloneFirst = wrapper[i].firstElementChild.cloneNode(true);  
+                const cloneLast = wrapper[i].lastElementChild.cloneNode(true);
+                
+                wrapper[i].insertBefore(cloneLast, wrapper[i].firstChild);
+                wrapper[i].appendChild(cloneFirst);
+
+                //상태 초기화
+                slideIndex[i] = 1;
+                moveSlide(false, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
+                slideNum[i] = slideNum[i] + 2   //클론 포함 슬라이드 개수
+            }
         }else if((lastWidth > 1280 && window.innerWidth <= 1280) || (lastWidth <= 1100 && window.innerWidth > 1100)){
             unitInnerNum = 3; 
-            for(let i = 0; i < wrapper[0].childElementCount; i++){
+            for(let i = 0; i < tabNum; i++){
                 deleteElements(wrapper[i]);
             }
-            createUnit(item, unitInnerNum, unitNum, wrapper, unit);
+            createUnit(item, unitInnerNum, unitNum, wrapper, unit, slideNum, originalNum);
+
+            for(let i = 0; i < tabNum; i++){
+                originalWidth[i] = wrapper[i].scrollWidth;
+            }
+
+            //라디오 버튼 생성
+            for(let i = 0; i < tabNum; i++){
+                deleteElements(radioContainer[i]);
+                
+                for(let j = 0; j < slideNum[i]; j++){
+                    const radioButton = document.createElement('div');
+                    radioButton.classList.add('default-radio');
+                    radioContainer[i].appendChild(radioButton);
+                    
+
+                    radioButton.addEventListener('click', () => {
+                        slideIndex[i] = j + 1;
+                        moveSlide(true, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
+                        selectRadio(radioContainer[i], originalNum[i], slideNum[i], slideIndex[i]);
+                    });
+                }
+            
+                //선택된 라디오 버튼에 색 변경 클래스 추가
+                radioContainer[i].firstChild.classList.add('selected-radio');
+            }
+
+            //슬라이드 추가
+            for(let i = 0; i < tabNum; i++){
+                if(slideNum[i] > originalNum[i]){
+                    wrapper[i].removeChild(wrapper[i].firstChild);
+                    wrapper[i].removeChild(wrapper[i].lastChild);
+                }
+                const cloneFirst = wrapper[i].firstElementChild.cloneNode(true);  
+                const cloneLast = wrapper[i].lastElementChild.cloneNode(true);
+                
+                wrapper[i].insertBefore(cloneLast, wrapper[i].firstChild);
+                wrapper[i].appendChild(cloneFirst);
+
+                //상태 초기화
+                slideIndex[i] = 1;
+                moveSlide(false, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
+                slideNum[i] = slideNum[i] + 2   //클론 포함 슬라이드 개수
+            }
         }else if((lastWidth > 1100 && window.innerWidth <= 1100) || (lastWidth <= 834 && window.innerWidth > 834)){
             unitInnerNum = 2; 
-            for(let i = 0; i < wrapper[0].childElementCount; i++){
+            for(let i = 0; i < tabNum; i++){
                 deleteElements(wrapper[i]);
             }
-            createUnit(item, unitInnerNum, unitNum, wrapper, unit);
+            createUnit(item, unitInnerNum, unitNum, wrapper, unit, slideNum, originalNum);
+
+            for(let i = 0; i < tabNum; i++){
+                originalWidth[i] = wrapper[i].scrollWidth;
+            }
+
+            //라디오 버튼 생성
+            for(let i = 0; i < tabNum; i++){
+                deleteElements(radioContainer[i]);
+                
+                for(let j = 0; j < slideNum[i]; j++){
+                    const radioButton = document.createElement('div');
+                    radioButton.classList.add('default-radio');
+                    radioContainer[i].appendChild(radioButton);
+                    
+
+                    radioButton.addEventListener('click', () => {
+                        slideIndex[i] = j + 1;
+                        moveSlide(true, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
+                        selectRadio(radioContainer[i], originalNum[i], slideNum[i], slideIndex[i]);
+                    });
+                }
+            
+                //선택된 라디오 버튼에 색 변경 클래스 추가
+                radioContainer[i].firstChild.classList.add('selected-radio');
+            }
+
+            //슬라이드 추가
+            for(let i = 0; i < tabNum; i++){
+                if(slideNum[i] > originalNum[i]){
+                    wrapper[i].removeChild(wrapper[i].firstChild);
+                    wrapper[i].removeChild(wrapper[i].lastChild);
+                }
+                const cloneFirst = wrapper[i].firstElementChild.cloneNode(true);  
+                const cloneLast = wrapper[i].lastElementChild.cloneNode(true);
+                
+                wrapper[i].insertBefore(cloneLast, wrapper[i].firstChild);
+                wrapper[i].appendChild(cloneFirst);
+
+                //상태 초기화
+                slideIndex[i] = 1;
+                moveSlide(false, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
+                slideNum[i] = slideNum[i] + 2   //클론 포함 슬라이드 개수
+            }
         }else if(lastWidth > 834 && window.innerWidth <= 834){
             unitInnerNum = 1; 
-            for(let i = 0; i < wrapper[0].childElementCount; i++){
+            for(let i = 0; i < tabNum; i++){
                 deleteElements(wrapper[i]);
             }
-            createUnit(item, unitInnerNum, unitNum, wrapper, unit);
-        } 
+            createUnit(item, unitInnerNum, unitNum, wrapper, unit, slideNum, originalNum);
 
+            for(let i = 0; i < tabNum; i++){
+                originalWidth[i] = wrapper[i].scrollWidth;
+            }
 
+            //라디오 버튼 생성
+            for(let i = 0; i < tabNum; i++){
+                deleteElements(radioContainer[i]);
+                
+                for(let j = 0; j < slideNum[i]; j++){
+                    const radioButton = document.createElement('div');
+                    radioButton.classList.add('default-radio');
+                    radioContainer[i].appendChild(radioButton);
+                    
 
+                    radioButton.addEventListener('click', () => {
+                        slideIndex[i] = j + 1;
+                        moveSlide(true, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
+                        selectRadio(radioContainer[i], originalNum[i], slideNum[i], slideIndex[i]);
+                    });
+                }
+            
+                //선택된 라디오 버튼에 색 변경 클래스 추가
+                radioContainer[i].firstChild.classList.add('selected-radio');
+            }
 
+            //슬라이드 추가
+            for(let i = 0; i < tabNum; i++){
+                if(slideNum[i] > originalNum[i]){
+                    wrapper[i].removeChild(wrapper[i].firstChild);
+                    wrapper[i].removeChild(wrapper[i].lastChild);
+                }
+                const cloneFirst = wrapper[i].firstElementChild.cloneNode(true);  
+                const cloneLast = wrapper[i].lastElementChild.cloneNode(true);
+                
+                wrapper[i].insertBefore(cloneLast, wrapper[i].firstChild);
+                wrapper[i].appendChild(cloneFirst);
 
+                //상태 초기화
+                slideIndex[i] = 1;
+                moveSlide(false, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
+                slideNum[i] = slideNum[i] + 2   //클론 포함 슬라이드 개수
+            }
+        } else{
+            for(let i = 0; i < tabNum; i++){
+                originalWidth[i] = wrapper[i].scrollWidth - (wrapper[i].firstChild.clientWidth + wrapper[i].lastChild.clientWidth);
+                moveSlide(false, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
+            }
+        }
 
         lastWidth = window.innerWidth;
     });
+
     setDiscountRate();
-
-    
-
 }
+
 
 
 
@@ -694,17 +968,19 @@ function deleteElements(element){
     }
 }
 
-function createUnit(item, unitInnerNum, unitNum, wrapper, unit){
+function createUnit(item, unitInnerNum, unitNum, wrapper, unit, slideNum, originalNum){
     for(let i = 0; i < item.length; i++){
+        unitNum[i] = parseInt(item[i].length / unitInnerNum);
         if(item[i].length % unitInnerNum > 0){
-            unitNum[i] = parseInt(item[i].length / unitInnerNum) + 1;
+            slideNum[i] = unitNum[i] + 1;
+            originalNum[i] = unitNum[i] + 1;
         }else{
-            unitNum[i] = parseInt(item[i].length / unitInnerNum);
+            slideNum[i] = unitNum[i];
+            originalNum[i] = unitNum[i];
         }
         
         for(let j = 0; j < unitNum[i]; j++){
             wrapper[i].appendChild(unit.cloneNode(true));
-
             if(j == unitNum[i] - 1){
                 for(let k = unitInnerNum * j; k < item[i].length; k++){
                     wrapper[i].lastChild.appendChild(item[i][k]);
@@ -718,22 +994,28 @@ function createUnit(item, unitInnerNum, unitNum, wrapper, unit){
     } 
 }
 
-function createRadioBtn(){
-    for(let i = 0; i < slideNum; i++){
-        const radioButton = document.createElement('div');
-        radioButton.classList.add('radio');
-        radioContainer.appendChild(radioButton);
 
-        radioButton.addEventListener('click', () => {
-            slideIndex = i + 1;
-            moveSlide(true);
-            selectRadio();
-        });
+//슬라이드 이동 + 스킵 이펙트
+function moveSlide(transition, slideIndex, wrapper, frame, frameWidth, originalNum, originalWidth){
+    frameWidth = frame.clientWidth;
+
+    if(slideIndex == 0){
+        wrapper.style.transform = `translateX(-${wrapper.firstChild.clientWidth - frameWidth}px)`;
+    }else if(slideIndex == 1){
+        wrapper.style.transform = `translateX(-${wrapper.firstChild.clientWidth}px)`;
+    }else if(slideIndex == originalNum){
+        wrapper.style.transform = `translateX(-${wrapper.firstChild.clientWidth + originalWidth - frameWidth}px)`;
+    }else if(slideIndex > originalNum){
+        wrapper.style.transform = `translateX(-${wrapper.firstChild.clientWidth + originalWidth}px)`;
+    }else{
+        wrapper.style.transform = `translateX(-${wrapper.firstChild.clientWidth + frameWidth * (slideIndex - 1)}px)`;
     }
 
-    //선택된 라디오 버튼에 색 변경 클래스 추가
-    radioContainer.firstChild.classList.add('selected');
-    const radioNum = radioContainer.childElementCount;
+    if(transition){
+        wrapper.style.transition = `.5s`;
+    }else{
+        wrapper.style.transition = `0s`;
+    }
 }
 
 
