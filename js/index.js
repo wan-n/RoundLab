@@ -11,6 +11,8 @@ makeIntroCarousel();   //인트로
 makeLineTabMenu();   //라인 탭메뉴
 makeCategoryTabMenu();  //유형 탭메뉴
 setDiscountRate();   //상품 할인율 표시
+makeLineCarousel();   //라인 캐러셀
+makeCategoryCarousel();  //카테고리 캐러셀
 
 
 
@@ -344,8 +346,8 @@ function setDiscountRate(){
   
 
 
-makeLineCarousel();
 
+//라인 캐러셀
 function makeLineCarousel(){
     const frame = document.querySelector('.line-carousel .carousel-frame');   
     const wrapper = document.querySelectorAll('.line-carousel .carousel-contents-wrapper');
@@ -479,6 +481,127 @@ function moveLineSlide(transition, wrapper, moveWidth, slideIndex, frame){
 
 
 
+
+
+
+
+
+//카테고리 캐러셀
+function makeCategoryCarousel(){
+    const wrapper = document.querySelectorAll('.category-carousel .carousel-contents-wrapper');
+    const radioContainer = document.querySelectorAll('.category-carousel .category-bottom-btn');
+    const frame = document.querySelector('.category-carousel .carousel-frame');
+    const tabNum = document.getElementsByClassName('category-type-btn').length;
+    const prevBtn = document.querySelectorAll('.category-carousel .prev-btn');
+    const nextBtn = document.querySelectorAll('.category-carousel .next-btn');
+    const item = makeProductElements();
+    let moveChecker = true;
+    let unitInnerNum;   //한 프레임 안에 들어가는 상품 개수
+    let unitNum = [];    //상품 묶음 개수
+    let lastWidth = window.innerWidth; 
+    let originalNum = [];  //클론 전 슬라이드 개수
+    let originalWidth = [];  //클론 전 길이
+    let slideNum = [];  //슬라이드 개수
+    let slideIndex = [];   //현재 인덱스
+    let frameWidth;
+    let unit = document.createElement('li');
+
+    unit.classList.add('carousel-unit');
+
+    if(window.innerWidth > 1280){
+        unitInnerNum = 4;  
+    }else if(window.innerWidth <= 1280 && window.innerWidth > 1100){
+        unitInnerNum = 3; 
+    }else if(window.innerWidth <= 1100 && window.innerWidth > 834){
+        unitInnerNum = 2; 
+    }else if(window.innerWidth <= 834){
+        unitInnerNum = 1; 
+    }
+
+    createCarousel(wrapper, radioContainer, frame, tabNum, item, unitInnerNum, unitNum, originalNum, originalWidth, slideNum, slideIndex, frameWidth, unit);
+
+    
+
+    //좌우 버튼 이벤트
+    for(let i = 0; i < tabNum; i++){
+        //prev
+        prevBtn[i].addEventListener('click', () => {
+            if(moveChecker){
+                moveChecker = false;
+                slideIndex[i]--;
+                moveSlide(true, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
+
+                selectRadio(radioContainer[i], originalNum[i], slideNum[i], slideIndex[i]);
+                
+                setTimeout(() => {
+                    moveChecker = true;
+                    if(slideIndex[i] === 0){
+                        slideIndex[i] = slideNum[i] - 2;
+                        moveSlide(false, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
+                    }
+                }, 500);
+            }
+        });
+
+        //next
+        nextBtn[i].addEventListener('click', () => {
+            if(moveChecker){
+                moveChecker = false;
+                slideIndex[i]++;
+                moveSlide(true, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
+
+                selectRadio(radioContainer[i], originalNum[i], slideNum[i], slideIndex[i]);
+                
+                setTimeout(() => {
+                    moveChecker = true;
+                    if(slideIndex[i] === slideNum[i] - 1){
+                        slideIndex[i] = 1;
+                        moveSlide(false, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
+                    }
+                }, 500);
+            }
+        });
+    }
+
+    //반응형 고려
+    window.addEventListener('resize', () => {
+
+        if(lastWidth <= 1280 && window.innerWidth > 1280){
+            unitInnerNum = 4;  
+            for(let i = 0; i < tabNum; i++){
+                deleteElements(wrapper[i]);
+            }
+            createCarousel(wrapper, radioContainer, frame, tabNum, item, unitInnerNum, unitNum, originalNum, originalWidth, slideNum, slideIndex, frameWidth, unit);
+        }else if((lastWidth > 1280 && window.innerWidth <= 1280) || (lastWidth <= 1100 && window.innerWidth > 1100)){
+            unitInnerNum = 3; 
+            for(let i = 0; i < tabNum; i++){
+                deleteElements(wrapper[i]);
+            }
+            createCarousel(wrapper, radioContainer, frame, tabNum, item, unitInnerNum, unitNum, originalNum, originalWidth, slideNum, slideIndex, frameWidth, unit);
+        }else if((lastWidth > 1100 && window.innerWidth <= 1100) || (lastWidth <= 834 && window.innerWidth > 834)){
+            unitInnerNum = 2; 
+            for(let i = 0; i < tabNum; i++){
+                deleteElements(wrapper[i]);
+            }
+            createCarousel(wrapper, radioContainer, frame, tabNum, item, unitInnerNum, unitNum, originalNum, originalWidth, slideNum, slideIndex, frameWidth, unit);
+        }else if(lastWidth > 834 && window.innerWidth <= 834){
+            unitInnerNum = 1; 
+            for(let i = 0; i < tabNum; i++){
+                deleteElements(wrapper[i]);
+            }
+            createCarousel(wrapper, radioContainer, frame, tabNum, item, unitInnerNum, unitNum, originalNum, originalWidth, slideNum, slideIndex, frameWidth, unit);
+        } else{
+            for(let i = 0; i < tabNum; i++){
+                originalWidth[i] = wrapper[i].scrollWidth - (wrapper[i].firstChild.clientWidth + wrapper[i].lastChild.clientWidth);
+                moveSlide(false, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
+            }
+        }
+
+        lastWidth = window.innerWidth;
+    });
+
+    setDiscountRate();
+}
 
 
 
@@ -619,40 +742,9 @@ function makeProductElements(){
 
     return productElements;
 }
-makeCategoryCarousel();
-
-function makeCategoryCarousel(){
-    const wrapper = document.querySelectorAll('.category-carousel .carousel-contents-wrapper');
-    const radioContainer = document.querySelectorAll('.category-carousel .category-bottom-btn');
-    const frame = document.querySelector('.category-carousel .carousel-frame');
-    const tabNum = document.getElementsByClassName('category-type-btn').length;
-    const prevBtn = document.querySelectorAll('.category-carousel .prev-btn');
-    const nextBtn = document.querySelectorAll('.category-carousel .next-btn');
-    const item = makeProductElements();
-    let moveChecker = true;
-    let unitInnerNum;   //한 프레임 안에 들어가는 상품 개수
-    let unitNum = [];    //상품 묶음 개수
-    let unit = document.createElement('li');
-    let lastWidth = window.innerWidth; 
-    let originalNum = [];  //클론 전 슬라이드 개수
-    let originalWidth = [];  //클론 전 길이
-    let slideNum = [];  //슬라이드 개수
-    let slideIndex = [];   //현재 인덱스
-    let frameWidth;
-
-    unit.classList.add('carousel-unit');
-
-    if(window.innerWidth > 1280){
-        unitInnerNum = 4;  
-    }else if(window.innerWidth <= 1280 && window.innerWidth > 1100){
-        unitInnerNum = 3; 
-    }else if(window.innerWidth <= 1100 && window.innerWidth > 834){
-        unitInnerNum = 2; 
-    }else if(window.innerWidth <= 834){
-        unitInnerNum = 1; 
-    }
 
 
+function createCarousel(wrapper, radioContainer, frame, tabNum, item, unitInnerNum, unitNum, originalNum, originalWidth, slideNum, slideIndex, frameWidth, unit){
     createUnit(item, unitInnerNum, unitNum, wrapper, unit, slideNum, originalNum);
 
     for(let i = 0; i < tabNum; i++){
@@ -697,269 +789,7 @@ function makeCategoryCarousel(){
         moveSlide(false, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
         slideNum[i] = slideNum[i] + 2   //클론 포함 슬라이드 개수
     }
-
-    
-
-    //좌우 버튼 이벤트
-    for(let i = 0; i < tabNum; i++){
-        //prev
-        prevBtn[i].addEventListener('click', () => {
-            if(moveChecker){
-                moveChecker = false;
-                slideIndex[i]--;
-                moveSlide(true, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
-
-                selectRadio(radioContainer[i], originalNum[i], slideNum[i], slideIndex[i]);
-                
-                setTimeout(() => {
-                    moveChecker = true;
-                    if(slideIndex[i] === 0){
-                        slideIndex[i] = slideNum[i] - 2;
-                        moveSlide(false, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
-                    }
-                }, 500);
-            }
-        });
-
-        //next
-        nextBtn[i].addEventListener('click', () => {
-            if(moveChecker){
-                moveChecker = false;
-                slideIndex[i]++;
-                moveSlide(true, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
-
-                selectRadio(radioContainer[i], originalNum[i], slideNum[i], slideIndex[i]);
-                
-                setTimeout(() => {
-                    moveChecker = true;
-                    if(slideIndex[i] === slideNum[i] - 1){
-                        slideIndex[i] = 1;
-                        moveSlide(false, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
-                    }
-                }, 500);
-            }
-        });
-    }
-
-
-
-
-
-
-
-
-    window.addEventListener('resize', () => {
-
-        if(lastWidth <= 1280 && window.innerWidth > 1280){
-            unitInnerNum = 4;  
-            for(let i = 0; i < tabNum; i++){
-                deleteElements(wrapper[i]);
-            }
-            createUnit(item, unitInnerNum, unitNum, wrapper, unit, slideNum, originalNum);
-
-            for(let i = 0; i < tabNum; i++){
-                originalWidth[i] = wrapper[i].scrollWidth;
-            }
-
-            //라디오 버튼 생성
-            for(let i = 0; i < tabNum; i++){
-                deleteElements(radioContainer[i]);
-                
-                for(let j = 0; j < slideNum[i]; j++){
-                    const radioButton = document.createElement('div');
-                    radioButton.classList.add('default-radio');
-                    radioContainer[i].appendChild(radioButton);
-                    
-
-                    radioButton.addEventListener('click', () => {
-                        slideIndex[i] = j + 1;
-                        moveSlide(true, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
-                        selectRadio(radioContainer[i], originalNum[i], slideNum[i], slideIndex[i]);
-                    });
-                }
-            
-                //선택된 라디오 버튼에 색 변경 클래스 추가
-                radioContainer[i].firstChild.classList.add('selected-radio');
-            }
-
-            //슬라이드 추가
-            for(let i = 0; i < tabNum; i++){
-                if(slideNum[i] > originalNum[i]){
-                    wrapper[i].removeChild(wrapper[i].firstChild);
-                    wrapper[i].removeChild(wrapper[i].lastChild);
-                }
-                const cloneFirst = wrapper[i].firstElementChild.cloneNode(true);  
-                const cloneLast = wrapper[i].lastElementChild.cloneNode(true);
-                
-                wrapper[i].insertBefore(cloneLast, wrapper[i].firstChild);
-                wrapper[i].appendChild(cloneFirst);
-
-                //상태 초기화
-                slideIndex[i] = 1;
-                moveSlide(false, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
-                slideNum[i] = slideNum[i] + 2   //클론 포함 슬라이드 개수
-            }
-        }else if((lastWidth > 1280 && window.innerWidth <= 1280) || (lastWidth <= 1100 && window.innerWidth > 1100)){
-            unitInnerNum = 3; 
-            for(let i = 0; i < tabNum; i++){
-                deleteElements(wrapper[i]);
-            }
-            createUnit(item, unitInnerNum, unitNum, wrapper, unit, slideNum, originalNum);
-
-            for(let i = 0; i < tabNum; i++){
-                originalWidth[i] = wrapper[i].scrollWidth;
-            }
-
-            //라디오 버튼 생성
-            for(let i = 0; i < tabNum; i++){
-                deleteElements(radioContainer[i]);
-                
-                for(let j = 0; j < slideNum[i]; j++){
-                    const radioButton = document.createElement('div');
-                    radioButton.classList.add('default-radio');
-                    radioContainer[i].appendChild(radioButton);
-                    
-
-                    radioButton.addEventListener('click', () => {
-                        slideIndex[i] = j + 1;
-                        moveSlide(true, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
-                        selectRadio(radioContainer[i], originalNum[i], slideNum[i], slideIndex[i]);
-                    });
-                }
-            
-                //선택된 라디오 버튼에 색 변경 클래스 추가
-                radioContainer[i].firstChild.classList.add('selected-radio');
-            }
-
-            //슬라이드 추가
-            for(let i = 0; i < tabNum; i++){
-                if(slideNum[i] > originalNum[i]){
-                    wrapper[i].removeChild(wrapper[i].firstChild);
-                    wrapper[i].removeChild(wrapper[i].lastChild);
-                }
-                const cloneFirst = wrapper[i].firstElementChild.cloneNode(true);  
-                const cloneLast = wrapper[i].lastElementChild.cloneNode(true);
-                
-                wrapper[i].insertBefore(cloneLast, wrapper[i].firstChild);
-                wrapper[i].appendChild(cloneFirst);
-
-                //상태 초기화
-                slideIndex[i] = 1;
-                moveSlide(false, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
-                slideNum[i] = slideNum[i] + 2   //클론 포함 슬라이드 개수
-            }
-        }else if((lastWidth > 1100 && window.innerWidth <= 1100) || (lastWidth <= 834 && window.innerWidth > 834)){
-            unitInnerNum = 2; 
-            for(let i = 0; i < tabNum; i++){
-                deleteElements(wrapper[i]);
-            }
-            createUnit(item, unitInnerNum, unitNum, wrapper, unit, slideNum, originalNum);
-
-            for(let i = 0; i < tabNum; i++){
-                originalWidth[i] = wrapper[i].scrollWidth;
-            }
-
-            //라디오 버튼 생성
-            for(let i = 0; i < tabNum; i++){
-                deleteElements(radioContainer[i]);
-                
-                for(let j = 0; j < slideNum[i]; j++){
-                    const radioButton = document.createElement('div');
-                    radioButton.classList.add('default-radio');
-                    radioContainer[i].appendChild(radioButton);
-                    
-
-                    radioButton.addEventListener('click', () => {
-                        slideIndex[i] = j + 1;
-                        moveSlide(true, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
-                        selectRadio(radioContainer[i], originalNum[i], slideNum[i], slideIndex[i]);
-                    });
-                }
-            
-                //선택된 라디오 버튼에 색 변경 클래스 추가
-                radioContainer[i].firstChild.classList.add('selected-radio');
-            }
-
-            //슬라이드 추가
-            for(let i = 0; i < tabNum; i++){
-                if(slideNum[i] > originalNum[i]){
-                    wrapper[i].removeChild(wrapper[i].firstChild);
-                    wrapper[i].removeChild(wrapper[i].lastChild);
-                }
-                const cloneFirst = wrapper[i].firstElementChild.cloneNode(true);  
-                const cloneLast = wrapper[i].lastElementChild.cloneNode(true);
-                
-                wrapper[i].insertBefore(cloneLast, wrapper[i].firstChild);
-                wrapper[i].appendChild(cloneFirst);
-
-                //상태 초기화
-                slideIndex[i] = 1;
-                moveSlide(false, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
-                slideNum[i] = slideNum[i] + 2   //클론 포함 슬라이드 개수
-            }
-        }else if(lastWidth > 834 && window.innerWidth <= 834){
-            unitInnerNum = 1; 
-            for(let i = 0; i < tabNum; i++){
-                deleteElements(wrapper[i]);
-            }
-            createUnit(item, unitInnerNum, unitNum, wrapper, unit, slideNum, originalNum);
-
-            for(let i = 0; i < tabNum; i++){
-                originalWidth[i] = wrapper[i].scrollWidth;
-            }
-
-            //라디오 버튼 생성
-            for(let i = 0; i < tabNum; i++){
-                deleteElements(radioContainer[i]);
-                
-                for(let j = 0; j < slideNum[i]; j++){
-                    const radioButton = document.createElement('div');
-                    radioButton.classList.add('default-radio');
-                    radioContainer[i].appendChild(radioButton);
-                    
-
-                    radioButton.addEventListener('click', () => {
-                        slideIndex[i] = j + 1;
-                        moveSlide(true, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
-                        selectRadio(radioContainer[i], originalNum[i], slideNum[i], slideIndex[i]);
-                    });
-                }
-            
-                //선택된 라디오 버튼에 색 변경 클래스 추가
-                radioContainer[i].firstChild.classList.add('selected-radio');
-            }
-
-            //슬라이드 추가
-            for(let i = 0; i < tabNum; i++){
-                if(slideNum[i] > originalNum[i]){
-                    wrapper[i].removeChild(wrapper[i].firstChild);
-                    wrapper[i].removeChild(wrapper[i].lastChild);
-                }
-                const cloneFirst = wrapper[i].firstElementChild.cloneNode(true);  
-                const cloneLast = wrapper[i].lastElementChild.cloneNode(true);
-                
-                wrapper[i].insertBefore(cloneLast, wrapper[i].firstChild);
-                wrapper[i].appendChild(cloneFirst);
-
-                //상태 초기화
-                slideIndex[i] = 1;
-                moveSlide(false, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
-                slideNum[i] = slideNum[i] + 2   //클론 포함 슬라이드 개수
-            }
-        } else{
-            for(let i = 0; i < tabNum; i++){
-                originalWidth[i] = wrapper[i].scrollWidth - (wrapper[i].firstChild.clientWidth + wrapper[i].lastChild.clientWidth);
-                moveSlide(false, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
-            }
-        }
-
-        lastWidth = window.innerWidth;
-    });
-
-    setDiscountRate();
 }
-
-
 
 
 function deleteElements(element){
