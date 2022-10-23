@@ -482,151 +482,395 @@ function moveLineSlide(transition, wrapper, moveWidth, slideIndex, frame){
 
 
 
+//개별 상품 데이터 생성
+function makeProductObj(productImgURL, productName, productDiscountRate, productCost, productSellingPrice, productHref){
+    let obj = {
+        imgURL : productImgURL,
+        name : productName,
+        discountRate : productDiscountRate,
+        cost : productCost,
+        sellingPrice : productSellingPrice,
+        href : productHref,
+    }
+
+    return obj;
+}
 
 
+//상품 리스트 생성
+function makeProductElements(){
+    const productData = [
+        [
+            makeProductObj('img/category_1-1.jpg', '소나무 진정 시카 토너 250ml', 0, '23,000', '23,000', '#'), 
+            makeProductObj('img/category_1-2.jpg', '1025 독도 토너 대용량 500ml', 0, '30,000', '30,000', '#'), 
+            makeProductObj('img/category_1-3.jpg', '포 맨 자작나무 수분 토너 200ml', 0, '24,000', '24,000', '#'), 
+            makeProductObj('img/category_1-4.jpg', '해풍쑥 진정 토너 300ml', 20, '24,000', '19,200', '#')
+        ],
+        [
+            makeProductObj('img/category_2-1.jpg', '1025 독도 앰플 45g', 20, '28,000', '22,400', '#'), 
+            makeProductObj('img/category_2-2.jpg', '자작나무 수분 세럼 50ml', 10, '28,000', '25,200', '#'), 
+            makeProductObj('img/category_2-3.jpg', '1025 독도 수분 앰플 30ml', 10, '15,000', '13,500', '#'), 
+            makeProductObj('img/category_2-4.jpg', '1025 독도 진정 앰플 30ml', 10, '15,000', '13,500', '#')
+        ],
+        [
+            makeProductObj('img/category_3-1.jpg', '1025 독도 로션 200ml', 20, '20,000', '16,000', '#'), 
+            makeProductObj('img/category_3-2.jpg', '1025 독도 크림 80ml', 10, '32,000', '28,800', '#'), 
+            makeProductObj('img/category_3-3.jpg', '약콩 영양 크림 80ml + 크림 20ml', 20, '32,000', '25,600', '#'), 
+            makeProductObj('img/category_3-4.jpg', '자작나무 수분 크림 80ml', 20, '32,000', '25,600', '#')
+        ],
+        [
+            makeProductObj('img/category_4-1.jpg', '1025 독도클렌저 150ml', 10, '13,000', '11,700', '#'), 
+            makeProductObj('img/category_4-2.jpg', '1025 독도 클렌징 오일 200ml', 10, '23,000', '20,700', '#'), 
+            makeProductObj('img/category_4-3.jpg', '1025 독도 클렌징 워터 400ml', 10, '18,000', '16,200', '#'), 
+            makeProductObj('img/category_4-4.jpg', '자작나무 수분 클렌저 150ml', 10, '15,000', '13,500', '#')
+        ],
+        [
+            makeProductObj('img/category_5-1.jpg', '1025 독도 수면팩 100m', 20, '21,000', '16,800', '#'), 
+            makeProductObj('img/category_5-2.jpg', '약콩 영양 마스크 (1매)', 40, '3,000', '1,800', '#'), 
+            makeProductObj('img/category_5-3.jpg', '자작나무 수분 마스크 (1매)', 40, '3,000', '1,800', '#'), 
+            makeProductObj('img/category_5-4.jpg', '해풍쑥 진정 마스크 (1매)', 40, '3,000', '1,800', '#')
+        ],
+        [
+            makeProductObj('img/category_6-1.jpg', '365 안심 선크림 50ml (논나노무기자차)', 10, '25,000', '2,500', '#'), 
+            makeProductObj('img/category_6-2.jpg', '365 안심 선크림 50ml 2개 세트 (논나노무기자차)', 20, '50,000', '40,000', '#'), 
+            makeProductObj('img/category_6-3.jpg', '365 톤업 선크림 50ml', 20, '25,000', '20,000', '#'), 
+            makeProductObj('img/category_6-4.jpg', '365 톤업 선크림 50ml 2개 세트', 20, '50,000', '40,000', '#')
+        ]
+    ];
+
+       //상품 요소 생성 후 저장할 곳
+    let productElements = new Array(productData.length);
+    for(let i = 0; i < productElements.length; i++){
+        productElements[i] = new Array(productData[i].length);
+    }
+
+    for(let i = 0; i < productData.length; i++){
+        for(let j = 0; j < productData[i].length; j++){
+            const product = document.createElement('div');
+            product.classList.add('carousel-contents');
+
+            const productLink = document.createElement('a');
+            productLink.setAttribute('href', productData[i][j].href);
+
+            const discountImg = document.createElement('div');
+            discountImg.classList.add('discount-img');
+            
+            if(productData[i][j].discountRate == 0){
+                discountImg.classList.add('discount0');
+            }else if(productData[i][j].discountRate == 10){
+                discountImg.classList.add('discount10');
+            }else if(productData[i][j].discountRate == 20){
+                discountImg.classList.add('discount20');
+            }else if(productData[i][j].discountRate == 25){
+                discountImg.classList.add('discount25');
+            }else if(productData[i][j].discountRate == 30){
+                discountImg.classList.add('discount30');
+            }else if(productData[i][j].discountRate == 40){
+                discountImg.classList.add('discount40');
+            }else if(productData[i][j].discountRate == 50){
+                discountImg.classList.add('discount50');
+            }else if(productData[i][j].discountRate == 60){
+                discountImg.classList.add('discount60');
+            }
+
+            const figure = document.createElement('figure');
+            const productImg = document.createElement('img');
+            productImg.setAttribute('src', productData[i][j].imgURL);
+            productImg.setAttribute('alt', productData[i][j].name + ' 상품 이미지');
+            figure.appendChild(productImg);
+
+            const textBox = document.createElement('div');
+            textBox.classList.add('text-box');
+
+            const productNameBox = document.createElement('div');
+            productNameBox.classList.add('product-name');
+            const productName = document.createElement('p');
+            productName.appendChild(document.createTextNode(productData[i][j].name));
+            productNameBox.appendChild(productName);
+
+            const productPriceBox = document.createElement('div');
+            productPriceBox.classList.add('product-price');
+            const cost = document.createElement('span');
+            cost.classList.add('discount');
+            if(productData[i][j].discountRate != 0){
+                cost.appendChild(document.createTextNode(productData[i][j].cost));
+            }
+            const sellingPrice = document.createElement('span');
+            sellingPrice.classList.add('price');
+            sellingPrice.appendChild(document.createTextNode(productData[i][j].sellingPrice));
+            const won = document.createElement('span');
+            won.classList.add('won');
+            won.appendChild(document.createTextNode('원'));
+            productPriceBox.appendChild(cost);
+            productPriceBox.appendChild(sellingPrice);
+            productPriceBox.appendChild(won);
 
 
+            textBox.appendChild(productNameBox);
+            textBox.appendChild(productPriceBox);
+            productLink.appendChild(discountImg);
+            productLink.appendChild(figure);
+            productLink.appendChild(textBox);
+            product.appendChild(productLink);
 
+            productElements[i][j] = product;
+        }
+    }
 
-
-
-
-
-
-
+    return productElements;
+}
 makeCategoryCarousel();
 
-
 function makeCategoryCarousel(){
-    const frame = document.querySelector('.category-carousel .carousel-frame');   
-    const wrapper = document.querySelectorAll('.category-carousel .carousel-contents-wrapper');
-    const contents = document.querySelectorAll('.category-carousel .carousel-unit');
-    const radioContainer = document.getElementsByClassName('category-bottom-btn'); 
-    const prevBtn = document.querySelectorAll('.category-carousel .prev-btn');
-    const nextBtn = document.querySelectorAll('.category-carousel .next-btn');
-    const tabNum = document.getElementsByClassName('category-type-btn').length;
-    const cloneNum = 3;
-    let moveWidth;  //슬라이드 이동 길이
-    let diffWidth;  //추가 이동 길이
-    let slideIndex = [];  //현재 인덱스
-    let slideNum;  //슬라이드 개수
-    let moveChecker = true; //슬라이드 이동 가능 상태 : true
-    let state = true;
+    const wrapper = document.querySelectorAll('.category-carousel .carousel-contents-wrapper')
+    let unitInnerNum;   //한 프레임 안에 들어가는 상품 개수
+    let unitNum = [];    //상품 묶음 개수
+    let unit = document.createElement('li');
+    unit.classList.add('carousel-unit');
+    const item = makeProductElements();
+    let lastWidth = window.innerWidth; 
+    let state;   //프레임 크기보다 아이템 개수가 많을경우 true
 
-    
-    moveWidth = frame.clientWidth;
-
-
-    if(wrapper[0].scrollWidth % moveWidth > 0){
-        slideNum = parseInt(wrapper[0].scrollWidth / moveWidth) + 1;
-        diffWidth = parseInt(wrapper[0].scrollWidth - frame.clientWidth * (slideNum - 1));
-        state = true;
-    }else{
-        slideNum = parseInt(wrapper[0].scrollWidth / moveWidth);
-        diffWidth = 0;
-        state = false;
-    }
-    
-
-    for(let i = 0; i < tabNum; i++){ 
-        slideIndex[i] = 1;
+    if(window.innerWidth > 1280){
+        unitInnerNum = 4;  
+    }else if(window.innerWidth <= 1280 && window.innerWidth > 1100){
+        unitInnerNum = 3; 
+    }else if(window.innerWidth <= 1100 && window.innerWidth > 834){
+        unitInnerNum = 2; 
+    }else if(window.innerWidth <= 834){
+        unitInnerNum = 1; 
     }
 
-    //라디오버튼
-    for(let i = 0; i < tabNum; i++){   //탭메뉴 모두
-        for(let j = 0; j < slideNum; j++){    //라디오 버튼 생성
-            const radioButton = document.createElement('div');
-            radioButton.classList.add('default-radio');
-            radioContainer[i].appendChild(radioButton);
+    createUnit(item, unitInnerNum, unitNum, wrapper, unit);
 
-            //라디오 버튼 클릭 이벤트
-            radioButton.addEventListener('click', () => {
-                slideIndex[i] = j + 1;
-                moveCategorySlide(true, wrapper[i], moveWidth, slideIndex[i], frame, contents[0].clientWidth, cloneNum, state, diffWidth, slideNum);
-                selectRadio(radioContainer[i], radioNum, slideNum, slideIndex[i]);
-            });
+
+
+    window.addEventListener('resize', () => {
+
+        if(lastWidth <= 1280 && window.innerWidth > 1280){
+            unitInnerNum = 4;  
+            for(let i = 0; i < wrapper[0].childElementCount; i++){
+                deleteElements(wrapper[i]);
+            }
+            createUnit(item, unitInnerNum, unitNum, wrapper, unit);
+        }else if((lastWidth > 1280 && window.innerWidth <= 1280) || (lastWidth <= 1100 && window.innerWidth > 1100)){
+            unitInnerNum = 3; 
+            for(let i = 0; i < wrapper[0].childElementCount; i++){
+                deleteElements(wrapper[i]);
+            }
+            createUnit(item, unitInnerNum, unitNum, wrapper, unit);
+        }else if((lastWidth > 1100 && window.innerWidth <= 1100) || (lastWidth <= 834 && window.innerWidth > 834)){
+            unitInnerNum = 2; 
+            for(let i = 0; i < wrapper[0].childElementCount; i++){
+                deleteElements(wrapper[i]);
+            }
+            createUnit(item, unitInnerNum, unitNum, wrapper, unit);
+        }else if(lastWidth > 834 && window.innerWidth <= 834){
+            unitInnerNum = 1; 
+            for(let i = 0; i < wrapper[0].childElementCount; i++){
+                deleteElements(wrapper[i]);
+            }
+            createUnit(item, unitInnerNum, unitNum, wrapper, unit);
+        } 
+
+
+
+
+
+
+        lastWidth = window.innerWidth;
+    });
+    setDiscountRate();
+
+    
+
+}
+
+
+
+function deleteElements(element){
+    while(element.firstChild){
+        element.removeChild(element.firstChild);
+    }
+}
+
+function createUnit(item, unitInnerNum, unitNum, wrapper, unit){
+    for(let i = 0; i < item.length; i++){
+        if(item[i].length % unitInnerNum > 0){
+            unitNum[i] = parseInt(item[i].length / unitInnerNum) + 1;
+        }else{
+            unitNum[i] = parseInt(item[i].length / unitInnerNum);
         }
-        radioContainer[i].firstChild.classList.add('selected-radio');
-    }
-    
-    const radioNum = radioContainer[0].childElementCount;
+        
+        for(let j = 0; j < unitNum[i]; j++){
+            wrapper[i].appendChild(unit.cloneNode(true));
 
-    //슬라이드 추가(클론노드)
-    for(let i = 0; i < tabNum; i++){
+            if(j == unitNum[i] - 1){
+                for(let k = unitInnerNum * j; k < item[i].length; k++){
+                    wrapper[i].lastChild.appendChild(item[i][k]);
+                }
+            }else{
+                for(let k = unitInnerNum * j; k < unitInnerNum * (j + 1); k++){
+                    wrapper[i].lastChild.appendChild(item[i][k]);
+                }
+            }
+        }
+    } 
+}
+
+function createRadioBtn(){
+    for(let i = 0; i < slideNum; i++){
+        const radioButton = document.createElement('div');
+        radioButton.classList.add('radio');
+        radioContainer.appendChild(radioButton);
+
+        radioButton.addEventListener('click', () => {
+            slideIndex = i + 1;
+            moveSlide(true);
+            selectRadio();
+        });
+    }
+
+    //선택된 라디오 버튼에 색 변경 클래스 추가
+    radioContainer.firstChild.classList.add('selected');
+    const radioNum = radioContainer.childElementCount;
+}
+
+
+
+
+
+
+// function makeCategoryCarousel(){
+//     const frame = document.querySelector('.category-carousel .carousel-frame');   
+//     const wrapper = document.querySelectorAll('.category-carousel .carousel-contents-wrapper');
+//     const contents = document.querySelectorAll('.category-carousel .carousel-unit');
+//     const radioContainer = document.getElementsByClassName('category-bottom-btn'); 
+//     const prevBtn = document.querySelectorAll('.category-carousel .prev-btn');
+//     const nextBtn = document.querySelectorAll('.category-carousel .next-btn');
+//     const tabNum = document.getElementsByClassName('category-type-btn').length;
+//     const cloneNum = 3;
+//     let moveWidth;  //슬라이드 이동 길이
+//     let diffWidth;  //추가 이동 길이
+//     let slideIndex = [];  //현재 인덱스
+//     let slideNum;  //슬라이드 개수
+//     let moveChecker = true; //슬라이드 이동 가능 상태 : true
+//     let state = true;
+
+    
+//     moveWidth = frame.clientWidth;
+
+
+//     if(wrapper[0].scrollWidth % moveWidth > 0){
+//         slideNum = parseInt(wrapper[0].scrollWidth / moveWidth) + 1;
+//         diffWidth = parseInt(wrapper[0].scrollWidth - frame.clientWidth * (slideNum - 1));
+//         state = true;
+//     }else{
+//         slideNum = parseInt(wrapper[0].scrollWidth / moveWidth);
+//         diffWidth = 0;
+//         state = false;
+//     }
+    
+
+//     for(let i = 0; i < tabNum; i++){ 
+//         slideIndex[i] = 1;
+//     }
+
+//     //라디오버튼
+//     for(let i = 0; i < tabNum; i++){   //탭메뉴 모두
+//         for(let j = 0; j < slideNum; j++){    //라디오 버튼 생성
+//             const radioButton = document.createElement('div');
+//             radioButton.classList.add('default-radio');
+//             radioContainer[i].appendChild(radioButton);
+
+//             //라디오 버튼 클릭 이벤트
+//             radioButton.addEventListener('click', () => {
+//                 slideIndex[i] = j + 1;
+//                 moveCategorySlide(true, wrapper[i], moveWidth, slideIndex[i], frame, contents[0].clientWidth, cloneNum, state, diffWidth, slideNum);
+//                 selectRadio(radioContainer[i], radioNum, slideNum, slideIndex[i]);
+//             });
+//         }
+//         radioContainer[i].firstChild.classList.add('selected-radio');
+//     }
+    
+//     const radioNum = radioContainer[0].childElementCount;
+
+//     //슬라이드 추가(클론노드)
+//     for(let i = 0; i < tabNum; i++){
 
         
-        wrapper[i].style.transform = `translateX(-${contents[0].clientWidth * cloneNum}px)`;   //처음 위치 세팅
-    }
-    slideNum = slideNum + 2; ;  //클론 포함
+//         wrapper[i].style.transform = `translateX(-${contents[0].clientWidth * cloneNum}px)`;   //처음 위치 세팅
+//     }
+//     slideNum = slideNum + 2; ;  //클론 포함
 
 
-    //좌우 버튼 이벤트
-    for(let i = 0; i < tabNum; i++){
-        //prev
-        prevBtn[i].addEventListener('click', () => {
-            if(moveChecker){
-                moveChecker = false;
-                slideIndex[i]--;
-                moveCategorySlide(true, wrapper[i], moveWidth, slideIndex[i], frame, contents[0].clientWidth, cloneNum, state, diffWidth, slideNum);
+//     //좌우 버튼 이벤트
+//     for(let i = 0; i < tabNum; i++){
+//         //prev
+//         prevBtn[i].addEventListener('click', () => {
+//             if(moveChecker){
+//                 moveChecker = false;
+//                 slideIndex[i]--;
+//                 moveCategorySlide(true, wrapper[i], moveWidth, slideIndex[i], frame, contents[0].clientWidth, cloneNum, state, diffWidth, slideNum);
 
-                selectRadio(radioContainer[i], radioNum, slideNum, slideIndex[i]);
+//                 selectRadio(radioContainer[i], radioNum, slideNum, slideIndex[i]);
                 
-                setTimeout(() => {
-                    moveChecker = true;
-                    if(slideIndex[i] === 0){
-                        slideIndex[i] = slideNum - 2;
-                        moveCategorySlide(false, wrapper[i], moveWidth, slideIndex[i], frame, contents[0].clientWidth, cloneNum, state, diffWidth, slideNum);
-                    }
-                }, 500);
-            }
-        });
+//                 setTimeout(() => {
+//                     moveChecker = true;
+//                     if(slideIndex[i] === 0){
+//                         slideIndex[i] = slideNum - 2;
+//                         moveCategorySlide(false, wrapper[i], moveWidth, slideIndex[i], frame, contents[0].clientWidth, cloneNum, state, diffWidth, slideNum);
+//                     }
+//                 }, 500);
+//             }
+//         });
 
-        //next
-        nextBtn[i].addEventListener('click', () => {
-            if(moveChecker){
-                moveChecker = false;
-                slideIndex[i]++;
-                moveCategorySlide(true, wrapper[i], moveWidth, slideIndex[i], frame, contents[0].clientWidth, cloneNum, state, diffWidth, slideNum);
+//         //next
+//         nextBtn[i].addEventListener('click', () => {
+//             if(moveChecker){
+//                 moveChecker = false;
+//                 slideIndex[i]++;
+//                 moveCategorySlide(true, wrapper[i], moveWidth, slideIndex[i], frame, contents[0].clientWidth, cloneNum, state, diffWidth, slideNum);
 
-                selectRadio(radioContainer[i], radioNum, slideNum, slideIndex[i]);
+//                 selectRadio(radioContainer[i], radioNum, slideNum, slideIndex[i]);
                 
-                setTimeout(() => {
-                    moveChecker = true;
-                    if(slideIndex[i] === slideNum - 1){
-                        slideIndex[i] = 1;
-                        moveCategorySlide(false, wrapper[i], moveWidth, slideIndex[i], frame, contents[0].clientWidth, cloneNum, state, diffWidth, slideNum);
-                    }
-                }, 500);
-            }
-        });
-    }
+//                 setTimeout(() => {
+//                     moveChecker = true;
+//                     if(slideIndex[i] === slideNum - 1){
+//                         slideIndex[i] = 1;
+//                         moveCategorySlide(false, wrapper[i], moveWidth, slideIndex[i], frame, contents[0].clientWidth, cloneNum, state, diffWidth, slideNum);
+//                     }
+//                 }, 500);
+//             }
+//         });
+//     }
 
-    //반응형
-    window.addEventListener('resize', () => {
-        for(let i = 0; i < tabNum; i++){
-            moveCategorySlide(false, wrapper[i], moveWidth, slideIndex[i], frame, contents[0].clientWidth, cloneNum, state, diffWidth, slideNum);
-        }
-    });
+//     //반응형
+//     window.addEventListener('resize', () => {
+//         for(let i = 0; i < tabNum; i++){
+//             moveCategorySlide(false, wrapper[i], moveWidth, slideIndex[i], frame, contents[0].clientWidth, cloneNum, state, diffWidth, slideNum);
+//         }
+//     });
 
-}
+// }
 
 
-//슬라이드 이동 + 트랜지션
-function moveCategorySlide(transition, wrapper, moveWidth, slideIndex, frame, contents, cloneNum, state, diffWidth, slideNum){
-    moveWidth = frame.clientWidth;
-    if(state && slideIndex >= slideNum - 2){
-        wrapper.style.transform = `translateX(-${contents * cloneNum + moveWidth * (slideIndex - 2) + diffWidth}px)`;
-    }else if(slideIndex == 0){
-        wrapper.style.transform = `translateX(-${contents * cloneNum - moveWidth}px)`;
-    }else{
-        wrapper.style.transform = `translateX(-${contents * cloneNum + moveWidth * (slideIndex - 1)}px)`;
-    }
+// //슬라이드 이동 + 트랜지션
+// function moveCategorySlide(transition, wrapper, moveWidth, slideIndex, frame, contents, cloneNum, state, diffWidth, slideNum){
+//     moveWidth = frame.clientWidth;
+//     if(state && slideIndex >= slideNum - 2){
+//         wrapper.style.transform = `translateX(-${contents * cloneNum + moveWidth * (slideIndex - 2) + diffWidth}px)`;
+//     }else if(slideIndex == 0){
+//         wrapper.style.transform = `translateX(-${contents * cloneNum - moveWidth}px)`;
+//     }else{
+//         wrapper.style.transform = `translateX(-${contents * cloneNum + moveWidth * (slideIndex - 1)}px)`;
+//     }
     
-    if(transition){
-        wrapper.style.transition = `.5s`;
-    }else{
-        wrapper.style.transition = `0s`;
-    }
-}
+//     if(transition){
+//         wrapper.style.transition = `.5s`;
+//     }else{
+//         wrapper.style.transition = `0s`;
+//     }
+// }
 
 

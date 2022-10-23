@@ -1028,12 +1028,13 @@ header:hover{
     display: flex;
 }
 
-.category-carousel .carousel-unit{
-    padding: 0 8px;
+.category-carousel .carousel-contents-wrapper>li{
+    display: flex;
 }
 
 .category-carousel .carousel-contents{
     position: relative;
+    padding: 0 8px;
 }
 
 .category-carousel .discount-img{
@@ -1044,7 +1045,7 @@ header:hover{
     background-size: 35px 50px;
     background-repeat: no-repeat;
     top: 0;
-    left: 12px;
+    left: 20px;
     color: #fff;
     font-size: 14px;
     font-weight: bold;
@@ -1098,6 +1099,7 @@ header:hover{
     font-size: 14px;
     color: var(--text-gray);
     text-decoration: line-through;
+    margin-right: 4px;
 }
 
 .category-carousel .price, .category-carousel .won{
@@ -1874,7 +1876,7 @@ footer{
         height: 495px;
     }
 
-    .category-carousel .carousel-unit{
+    .category-carousel .carousel-contents{
         padding: 0 10px;
     }
 
