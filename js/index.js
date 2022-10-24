@@ -1084,7 +1084,7 @@ function addDragEvent(){
             lastX = 0;
         }
         isMouseDown = true;
-        scrollStartX = e.touches[0].screenX - scroll.offsetLeft;   //slider 요소 내에서의 X좌표값이 계산된다.
+        scrollStartX = e.touches[0].screenX - scrollBar.offsetLeft;   //slider 요소 내에서의 X좌표값이 계산된다.
     });
 
     scroll.addEventListener('touchend', () => {
@@ -1108,7 +1108,7 @@ function addDragEvent(){
 
         moveChecker = true;
 
-        const x = e.touches[0].screenX - scroll.offsetLeft;   
+        const x = e.touches[0].screenX - scrollBar.offsetLeft;   
         walk = -(x - scrollStartX) * sliderRate;   
         
         if(lastX - walk > endWidth){
