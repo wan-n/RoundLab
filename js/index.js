@@ -857,22 +857,37 @@ function moveSlide(transition, slideIndex, wrapper, frame, frameWidth, originalN
 function addDragEvent(){
     const frame = document.querySelector('.review-frame');
     const slider = document.querySelector('.review-contents-wrapper');
-    const num = 1;  //스크롤로 전환되는 비율
+    const scrollBar = document.querySelector('.bottom-bar');
+    const scroll = document.querySelector('.check-loc');
+    let moveChecker = true;   //단순 클릭시 slider 움직임 방지
     let isMouseDown = false;   //마우스가 클릭 중이면 true
     let walk;    //드래그 이동거리
     let startX;  //드래그 시작지점의 X좌표
+    let scrollStartX;   //스크롤바 드래그 시작지점의 X좌표
     let lastX = 0;  //드래그 후 총 슬라이더 이동 거리
     let endWidth = slider.scrollWidth - frame.clientWidth;
+    let scrollRate = (scrollBar.clientWidth - scroll.clientWidth) / endWidth;  //스크롤로 전환되는 비율
+    let sliderRate =  endWidth / (scrollBar.clientWidth - scroll.clientWidth);  //슬라이더로 전환되는 비율
+    let beforeSize = frame.clientWidth;
 
+
+
+    //반응형
     window.addEventListener('resize', () => {
         endWidth = slider.scrollWidth - frame.clientWidth;
-        if(lastX > endWidth){
+        scrollRate = (scrollBar.clientWidth - scroll.clientWidth) / endWidth;
+        
+        if(beforeSize != frame.clientWidth){
             lastX = endWidth;
             slider.style.transform = `translateX(-${endWidth}px)`; 
+            scroll.style.left = `${endWidth * scrollRate}px`; 
         }
+
+        beforeSize = frame.clientWidth;
     });
     
 
+    //마우스 클릭
     slider.addEventListener('mousedown', (e) => {
         if(isNaN(lastX)){
             lastX = 0;
@@ -882,40 +897,118 @@ function addDragEvent(){
     });
 
     slider.addEventListener('mouseleave', () => {
-        lastX = lastX - walk;
-        if(lastX < 0){
-            lastX = 0;
-        }else if(lastX > endWidth){
-            lastX = endWidth;
+        if(moveChecker){
+            lastX = lastX - walk;
+            if(lastX < 0){
+                lastX = 0;
+            }else if(lastX > endWidth){
+                lastX = endWidth;
+            }
         }
-
         isMouseDown = false;
+        moveChecker = false;
     });
 
     slider.addEventListener('mouseup', () => {
-        lastX = lastX - walk;
-        if(lastX < 0){
-            lastX = 0;
-        }else if(lastX > endWidth){
-            lastX = endWidth;
+        if(moveChecker){
+            lastX = lastX - walk;
+            if(lastX < 0){
+                lastX = 0;
+            }else if(lastX > endWidth){
+                lastX = endWidth;
+            }
         }
 
         isMouseDown = false;
+        moveChecker = false;
     });
 
     slider.addEventListener('mousemove', (e) => {
         if(!isMouseDown) return;   //드래그 중이 아닐 경우 이벤트 중지
         
         e.preventDefault();   //클릭 한 위치의 요소의 기본이벤트 실행 방지
+
+        moveChecker = true;
+
         const x = e.pageX - slider.offsetLeft;   //현재 커서 위치의 x 좌표(slider 내부 기준)
         walk = x - startX;   //양수 : 우측이동 / 음수 : 좌측이동
-
+        
         if(lastX - walk > endWidth){
             slider.style.transform = `translateX(-${endWidth}px)`; 
+            scroll.style.left = `${endWidth * scrollRate}px`; 
         }else if(lastX - walk < 0){
             slider.style.transform = `translateX(0)`; 
+            scroll.style.left = `0`; 
         }else{
-            slider.style.transform = `translateX(-${lastX - walk}px)`;    
+            slider.style.transform = `translateX(-${lastX - walk}px)`;   
+            scroll.style.left = `${(lastX - walk) * scrollRate}px`;  
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+    scroll.addEventListener('mousedown', (e) => {
+        if(isNaN(lastX)){
+            lastX = 0;
+        }
+        isMouseDown = true;
+        scrollStartX = e.pageX - scrollBar.offsetLeft;   //scrollbar 요소 내에서의 X좌표값이 계산된다.
+    });
+
+    scroll.addEventListener('mouseleave', () => {
+        if(moveChecker){
+            lastX = lastX - walk;
+            if(lastX < 0){
+                lastX = 0;
+            }else if(lastX > endWidth){
+                lastX = endWidth;
+            }
+        }
+        isMouseDown = false;
+        moveChecker = false;
+    });
+
+    scroll.addEventListener('mouseup', () => {
+        if(moveChecker){
+            lastX = lastX - walk;
+            if(lastX < 0){
+                lastX = 0;
+            }else if(lastX > endWidth){
+                lastX = endWidth;
+            }
+        }
+
+        isMouseDown = false;
+        moveChecker = false;
+    });
+
+    scroll.addEventListener('mousemove', (e) => {
+        if(!isMouseDown) return;   //드래그 중이 아닐 경우 이벤트 중지
+        
+        e.preventDefault();   //클릭 한 위치의 요소의 기본이벤트 실행 방지
+
+        moveChecker = true;
+
+        const x = e.pageX - scrollBar.offsetLeft;   
+        walk = -(x - scrollStartX) * sliderRate;   
+        
+        if(lastX - walk > endWidth){
+            slider.style.transform = `translateX(-${endWidth}px)`; 
+            scroll.style.left = `${endWidth * scrollRate}px`; 
+        }else if(lastX - walk < 0){
+            slider.style.transform = `translateX(0)`; 
+            scroll.style.left = `0`; 
+        }else{
+            slider.style.transform = `translateX(-${lastX - walk}px)`;   
+            scroll.style.left = `${(lastX - walk) * scrollRate}px`;  
         }
     });
 
@@ -931,6 +1024,11 @@ function addDragEvent(){
 
 
 
+
+
+
+
+    //터치
     slider.addEventListener('touchstart', (e) => {
         if(isNaN(lastX)){
             lastX = 0;
@@ -939,42 +1037,90 @@ function addDragEvent(){
         startX = e.touches[0].screenX - slider.offsetLeft;   //slider 요소 내에서의 X좌표값이 계산된다.
     });
 
-    slider.addEventListener('touchleave', () => {
-        lastX = lastX - walk;
-        if(lastX < 0){
-            lastX = 0;
-        }else if(lastX > endWidth){
-            lastX = endWidth;
-        }
-
-        isMouseDown = false;
-    });
-
     slider.addEventListener('touchend', () => {
-        lastX = lastX - walk;
-        if(lastX < 0){
-            lastX = 0;
-        }else if(lastX > endWidth){
-            lastX = endWidth;
+        if(moveChecker){
+            lastX = lastX - walk;
+            if(lastX < 0){
+                lastX = 0;
+            }else if(lastX > endWidth){
+                lastX = endWidth;
+            }
         }
 
         isMouseDown = false;
+        moveChecker = false;
     });
 
     slider.addEventListener('touchmove', (e) => {
         if(!isMouseDown) return;   //드래그 중이 아닐 경우 이벤트 중지
         
         e.preventDefault();   //클릭 한 위치의 요소의 기본이벤트 실행 방지
+
+        moveChecker = true;
+
         const x = e.touches[0].screenX - slider.offsetLeft;   //현재 커서 위치의 x 좌표(slider 내부 기준)
         walk = x - startX;   //양수 : 우측이동 / 음수 : 좌측이동
         
         if(lastX - walk > endWidth){
             slider.style.transform = `translateX(-${endWidth}px)`; 
+            scroll.style.left = `${endWidth * scrollRate}px`; 
         }else if(lastX - walk < 0){
             slider.style.transform = `translateX(0)`; 
+            scroll.style.left = `0`; 
         }else{
-            slider.style.transform = `translateX(-${lastX - walk}px)`;    
+            slider.style.transform = `translateX(-${lastX - walk}px)`;   
+            scroll.style.left = `${(lastX - walk) * scrollRate}px`;  
         }
     });
+
+
+
+    
+
+
+    scroll.addEventListener('touchstart', (e) => {
+        if(isNaN(lastX)){
+            lastX = 0;
+        }
+        isMouseDown = true;
+        scrollStartX = e.touches[0].screenX - scroll.offsetLeft;   //slider 요소 내에서의 X좌표값이 계산된다.
+    });
+
+    scroll.addEventListener('touchend', () => {
+        if(moveChecker){
+            lastX = lastX - walk;
+            if(lastX < 0){
+                lastX = 0;
+            }else if(lastX > endWidth){
+                lastX = endWidth;
+            }
+        }
+
+        isMouseDown = false;
+        moveChecker = false;
+    });
+
+    scroll.addEventListener('touchmove', (e) => {
+        if(!isMouseDown) return;   //드래그 중이 아닐 경우 이벤트 중지
+        
+        e.preventDefault();   //클릭 한 위치의 요소의 기본이벤트 실행 방지
+
+        moveChecker = true;
+
+        const x = e.touches[0].screenX - scroll.offsetLeft;   
+        walk = -(x - scrollStartX) * sliderRate;   
+        
+        if(lastX - walk > endWidth){
+            slider.style.transform = `translateX(-${endWidth}px)`; 
+            scroll.style.left = `${endWidth * scrollRate}px`; 
+        }else if(lastX - walk < 0){
+            slider.style.transform = `translateX(0)`; 
+            scroll.style.left = `0`; 
+        }else{
+            slider.style.transform = `translateX(-${lastX - walk}px)`;   
+            scroll.style.left = `${(lastX - walk) * scrollRate}px`;  
+        }
+    });
+
     
 }
