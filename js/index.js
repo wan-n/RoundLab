@@ -13,6 +13,7 @@ makeCategoryTabMenu();  //유형 탭메뉴
 setDiscountRate();   //상품 할인율 표시
 makeLineCarousel();   //라인 캐러셀
 makeCategoryCarousel();  //카테고리 캐러셀
+addDragEvent();   //리뷰 좌우 드래그
 
 
 
@@ -850,3 +851,73 @@ function moveSlide(transition, slideIndex, wrapper, frame, frameWidth, originalN
 
 
 
+
+
+
+function addDragEvent(){
+    const frame = document.querySelector('.review-frame');
+    const slider = document.querySelector('.review-contents-wrapper');
+    const num = 1;  //스크롤로 전환되는 비율
+    let isMouseDown = false;   //마우스가 클릭 중이면 true
+    let walk;    //드래그 이동거리
+    let startX;  //드래그 시작지점의 X좌표
+    let lastX = 0;  //드래그 후 총 슬라이더 이동 거리
+    let endWidth = slider.scrollWidth - frame.clientWidth;
+
+    window.addEventListener('resize', () => {
+        endWidth = slider.scrollWidth - frame.clientWidth;
+        if(lastX > endWidth){
+            lastX = endWidth;
+            slider.style.transform = `translateX(-${endWidth}px)`; 
+        }
+    });
+    
+
+    slider.addEventListener('mousedown', (e) => {
+        if(isNaN(lastX)){
+            lastX = 0;
+        }
+        isMouseDown = true;
+        startX = e.pageX - slider.offsetLeft;   //slider 요소 내에서의 X좌표값이 계산된다.
+    });
+
+    slider.addEventListener('mouseleave', () => {
+        lastX = lastX - walk;
+        if(lastX < 0){
+            lastX = 0;
+        }else if(lastX > endWidth){
+            lastX = endWidth;
+        }
+
+        isMouseDown = false;
+    });
+
+    slider.addEventListener('mouseup', () => {
+        lastX = lastX - walk;
+        if(lastX < 0){
+            lastX = 0;
+        }else if(lastX > endWidth){
+            lastX = endWidth;
+        }
+
+        isMouseDown = false;
+    });
+
+    slider.addEventListener('mousemove', (e) => {
+        if(!isMouseDown) return;   //드래그 중이 아닐 경우 이벤트 중지
+        
+        e.preventDefault();   //클릭 한 위치의 요소의 기본이벤트 실행 방지
+        const x = e.pageX - slider.offsetLeft;   //현재 커서 위치의 x 좌표(slider 내부 기준)
+        walk = x - startX;   //양수 : 우측이동 / 음수 : 좌측이동
+        
+        if(lastX - walk > endWidth){
+            slider.style.transform = `translateX(-${endWidth}px)`; 
+        }else if(lastX - walk < 0){
+            slider.style.transform = `translateX(0)`; 
+        }else{
+            slider.style.transform = `translateX(-${lastX - walk}px)`;    
+        }
+    });
+
+    
+}

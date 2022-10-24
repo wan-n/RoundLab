@@ -1235,7 +1235,7 @@ header:hover{
 }
 
 .review-wrapper{
-    width: var(--min-width-pc);
+    width: calc(var(--min-width-pc) + var(--gap-pc));
     margin: 0 auto;
 }
 
@@ -1247,13 +1247,14 @@ header:hover{
 
 .review-contents-wrapper{
     display: flex;
-    gap: var(--gap-pc);
+    z-index: 10;
 }
 
 .review-contents-wrapper>li{
     display: flex;
     flex-direction: column;
     gap: var(--gap-pc);
+    padding: 0 8px;
 }
 
 .review-list{
@@ -1344,6 +1345,20 @@ header:hover{
     font-weight: bold;
     color: #fff;
     border-radius: 20px;
+}
+
+.bottom-bar{
+    width: calc(100% - var(--gap-pc));
+    height: 20px;
+    border: 1px solid var(--border-gray);
+    padding: 1px;
+    margin: var(--gap-pc) auto 0 auto;
+}
+
+.check-loc{
+    width: 10%;
+    height: 100%;
+    background-color: var(--main-color);
 }
 
 
@@ -1742,22 +1757,8 @@ footer{
 
     /* 제품리뷰 */
     .review-wrapper{
-        width: 916px
+        width: calc(908px + var(--gap-pc));
     }
-
-    .review-frame{
-        height: 604px;
-    }
-
-    .review-contents-wrapper{
-        gap: var(--gap-tab);
-    }
-
-    .review-contents-wrapper>li{
-        gap: var(--gap-tab);
-    }
-
-
 }
 
 
@@ -1906,11 +1907,16 @@ footer{
 
     /* 제품리뷰 */
     .review-wrapper{
-        width: var(--min-width-tab)
+        width: calc(var(--min-width-tab) + var(--gap-tab));
     }
 
     .review-frame{
         height: 770px;
+    }
+
+    .review-contents-wrapper>li{
+        gap: var(--gap-tab);
+        padding: 0 10px;
     }
 
     .review-list{
@@ -1944,7 +1950,10 @@ footer{
         transform: translateY(0);
     }
 
-
+    .bottom-bar{
+        width: calc(100% - var(--gap-tab));
+        margin: var(--gap-tab) auto 0 auto;
+    }
 
 
 }
@@ -2114,15 +2123,15 @@ footer{
 
     /* 제품리뷰 */
     #review-container{
-        padding: 0 16px;
+        padding: 0 6px;
     }
 
     .review-wrapper{
-        width: 676px;
+        width: calc(676px + var(--gap-tab));
     }
 
     .review-frame{
-        width: 676px;
+        width: calc(676px + var(--gap-tab));
         height: 676px;
     }
 
@@ -2177,11 +2186,11 @@ footer{
 @media screen and (max-width: 708px){
     /* 제품리뷰 */
     .review-wrapper{
-        width: var(--min-width-mob);
+        width: calc(var(--min-width-mob) + var(--gap-tab));
     }
 
     .review-frame{
-        width: var(--min-width-mob);
+        width: calc(var(--min-width-mob) + var(--gap-tab));
     }
 }
 
