@@ -876,6 +876,7 @@ function addDragEvent(){
     window.addEventListener('resize', () => {
         endWidth = slider.scrollWidth - frame.clientWidth;
         scrollRate = (scrollBar.clientWidth - scroll.clientWidth) / endWidth;
+        sliderRate =  endWidth / (scrollBar.clientWidth - scroll.clientWidth);
         
         if(beforeSize != frame.clientWidth){
             lastX = endWidth;
