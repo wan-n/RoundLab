@@ -909,7 +909,7 @@ function addDragEvent(){
         e.preventDefault();   //클릭 한 위치의 요소의 기본이벤트 실행 방지
         const x = e.pageX - slider.offsetLeft;   //현재 커서 위치의 x 좌표(slider 내부 기준)
         walk = x - startX;   //양수 : 우측이동 / 음수 : 좌측이동
-        
+
         if(lastX - walk > endWidth){
             slider.style.transform = `translateX(-${endWidth}px)`; 
         }else if(lastX - walk < 0){
@@ -919,5 +919,62 @@ function addDragEvent(){
         }
     });
 
+
+
+
+
+
+
+
+
+
+
+
+
+    slider.addEventListener('touchstart', (e) => {
+        if(isNaN(lastX)){
+            lastX = 0;
+        }
+        isMouseDown = true;
+        startX = e.touches[0].screenX - slider.offsetLeft;   //slider 요소 내에서의 X좌표값이 계산된다.
+    });
+
+    slider.addEventListener('touchleave', () => {
+        lastX = lastX - walk;
+        if(lastX < 0){
+            lastX = 0;
+        }else if(lastX > endWidth){
+            lastX = endWidth;
+        }
+
+        isMouseDown = false;
+    });
+
+    slider.addEventListener('touchend', () => {
+        lastX = lastX - walk;
+        if(lastX < 0){
+            lastX = 0;
+        }else if(lastX > endWidth){
+            lastX = endWidth;
+        }
+
+        isMouseDown = false;
+    });
+
+    slider.addEventListener('touchmove', (e) => {
+        if(!isMouseDown) return;   //드래그 중이 아닐 경우 이벤트 중지
+        
+        e.preventDefault();   //클릭 한 위치의 요소의 기본이벤트 실행 방지
+        const x = e.touches[0].screenX - slider.offsetLeft;   //현재 커서 위치의 x 좌표(slider 내부 기준)
+        walk = x - startX;   //양수 : 우측이동 / 음수 : 좌측이동
+        
+        if(lastX - walk > endWidth){
+            slider.style.transform = `translateX(-${endWidth}px)`; 
+        }else if(lastX - walk < 0){
+            slider.style.transform = `translateX(0)`; 
+        }else{
+            slider.style.transform = `translateX(-${lastX - walk}px)`;    
+        }
+    });
     
 }
