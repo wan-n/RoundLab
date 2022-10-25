@@ -879,9 +879,9 @@ function addDragEvent(){
         sliderRate =  endWidth / (scrollBar.clientWidth - scroll.clientWidth);
         
         if(beforeSize != frame.clientWidth){
-            lastX = endWidth;
-            slider.style.transform = `translateX(-${endWidth}px)`; 
-            scroll.style.left = `${endWidth * scrollRate}px`; 
+            lastX = 0;
+            slider.style.transform = `translateX(0)`; 
+            scroll.style.left = `0`; 
         }
 
         beforeSize = frame.clientWidth;
