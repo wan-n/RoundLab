@@ -1,6 +1,3 @@
-
-
-
 makeScrollAnimation();  //헤더 SA
 showHamburgerMenu();   //햄버거메뉴
 showSearchContents();  //검색
@@ -14,14 +11,6 @@ setDiscountRate();   //상품 할인율 표시
 makeLineCarousel();   //라인 캐러셀
 makeCategoryCarousel();  //카테고리 캐러셀
 addDragEvent();   //리뷰 좌우 드래그
-
-
-
-
-
-
-
-    
 
 
 
@@ -339,15 +328,6 @@ function setDiscountRate(){
 }
 
 
-
-
-
-
-
-  
-
-
-
 //라인 캐러셀
 function makeLineCarousel(){
     const frame = document.querySelector('.line-carousel .carousel-frame');   
@@ -478,15 +458,6 @@ function moveLineSlide(transition, wrapper, moveWidth, slideIndex, frame){
 }
 
 
-
-
-
-
-
-
-
-
-
 //카테고리 캐러셀
 function makeCategoryCarousel(){
     const wrapper = document.querySelectorAll('.category-carousel .carousel-contents-wrapper');
@@ -603,8 +574,6 @@ function makeCategoryCarousel(){
 
     setDiscountRate();
 }
-
-
 
 //개별 상품 데이터 생성
 function makeProductObj(productImgURL, productName, productDiscountRate, productCost, productSellingPrice, productHref){
@@ -850,10 +819,6 @@ function moveSlide(transition, slideIndex, wrapper, frame, frameWidth, originalN
 }
 
 
-
-
-
-
 function addDragEvent(){
     const frame = document.querySelector('.review-frame');
     const slider = document.querySelector('.review-contents-wrapper');
@@ -869,6 +834,8 @@ function addDragEvent(){
     let scrollRate = (scrollBar.clientWidth - scroll.clientWidth) / endWidth;  //스크롤로 전환되는 비율
     let sliderRate =  endWidth / (scrollBar.clientWidth - scroll.clientWidth);  //슬라이더로 전환되는 비율
     let beforeSize = frame.clientWidth;
+    let way = true;  // true : 마우스 클릭 / false : 터치
+    let event = true;  //true : slider  / false : scroll
 
 
 
@@ -946,16 +913,6 @@ function addDragEvent(){
         }
     });
 
-
-
-
-
-
-
-
-
-
-
     scroll.addEventListener('mousedown', (e) => {
         if(isNaN(lastX)){
             lastX = 0;
@@ -1014,21 +971,6 @@ function addDragEvent(){
     });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //터치
     slider.addEventListener('touchstart', (e) => {
         if(isNaN(lastX)){
@@ -1073,11 +1015,6 @@ function addDragEvent(){
             scroll.style.left = `${(lastX - walk) * scrollRate}px`;  
         }
     });
-
-
-
-    
-
 
     scroll.addEventListener('touchstart', (e) => {
         if(isNaN(lastX)){
@@ -1125,3 +1062,4 @@ function addDragEvent(){
 
     
 }
+
