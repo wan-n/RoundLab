@@ -484,9 +484,9 @@ function makeCategoryCarousel(){
         unitInnerNum = 4;  
     }else if(window.innerWidth <= 1280 && window.innerWidth > 1100){
         unitInnerNum = 3; 
-    }else if(window.innerWidth <= 1100 && window.innerWidth > 834){
+    }else if(window.innerWidth <= 1100 && window.innerWidth > 600){
         unitInnerNum = 2; 
-    }else if(window.innerWidth <= 834){
+    }else if(window.innerWidth <= 600){
         unitInnerNum = 1; 
     }
 
@@ -550,13 +550,13 @@ function makeCategoryCarousel(){
                 deleteElements(wrapper[i]);
             }
             createCarousel(wrapper, radioContainer, frame, tabNum, item, unitInnerNum, unitNum, originalNum, originalWidth, slideNum, slideIndex, frameWidth, unit);
-        }else if((lastWidth > 1100 && window.innerWidth <= 1100) || (lastWidth <= 834 && window.innerWidth > 834)){
+        }else if((lastWidth > 1100 && window.innerWidth <= 1100) || (lastWidth <= 600 && window.innerWidth > 600)){
             unitInnerNum = 2; 
             for(let i = 0; i < tabNum; i++){
                 deleteElements(wrapper[i]);
             }
             createCarousel(wrapper, radioContainer, frame, tabNum, item, unitInnerNum, unitNum, originalNum, originalWidth, slideNum, slideIndex, frameWidth, unit);
-        }else if(lastWidth > 834 && window.innerWidth <= 834){
+        }else if(lastWidth > 600 && window.innerWidth <= 600){
             unitInnerNum = 1; 
             for(let i = 0; i < tabNum; i++){
                 deleteElements(wrapper[i]);

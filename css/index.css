@@ -1977,7 +1977,6 @@ footer{
 }
 
 
-
 @media screen and (max-width: 834px) {
     /* 헤더 */
     header{
@@ -2105,33 +2104,55 @@ footer{
     }
 
     /* 유형별 제품추천 */
+
     #category-product{
-        padding: 0 16px;
+        padding: 0;
     }
 
     .category-wrapper{
-        width: calc(375px + var(--gap-tab) + var(--arrow-btn));
+        width: calc(500px + var(--gap-tab) + var(--arrow-btn));
     }
 
     #category-product .selected-type-frame{
-        width: calc(375px + var(--gap-tab) + var(--arrow-btn));
+        width: calc(500px + var(--gap-tab) + var(--arrow-btn));
     }
 
     .category-carousel .carousel-frame{
-        width: calc(375px + var(--gap-tab));
+        width: calc(500px + var(--gap-tab));
+        height: 342px;
     }
 
     .category-carousel .arrow-btn{
-        width: calc(375px + var(--gap-tab) + var(--arrow-btn));
-        bottom: 300px;
+        width: calc(500px + var(--gap-tab) + var(--arrow-btn));
+        bottom: 220px;
+    }
+
+
+    .category-carousel .carousel-contents img{
+        width: 240px;
+        height: 240px;
+    }
+
+    .category-carousel .text-box{
+        width: 240px;
+        height: 100px;
+        padding: 10px 20px 0 20px;
+    }
+
+    .category-carousel .product-name{
+        height: 56px;
+    }
+
+    .category-carousel .product-name p{
+        max-height: 56px;
     }
 
     .category-bg-blue{
         width: calc(50vw + 340px);
-        height: 394px;
+        height: 254px;
         border-top-right-radius: 200px;
         border-bottom-right-radius: 200px;
-        bottom: 146px;
+        bottom: 130px;
     }
 
 
