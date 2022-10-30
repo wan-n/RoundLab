@@ -596,7 +596,7 @@ function makeProductElements(){
         [
             makeProductObj('img/category_1-1.jpg', '소나무 진정 시카 토너 250ml', 0, '23,000', '23,000', '#'), 
             makeProductObj('img/category_1-2.jpg', '1025 독도 토너 대용량 500ml', 0, '30,000', '30,000', '#'), 
-            makeProductObj('img/category_1-3.jpg', '포 맨 자작나무 수분 토너 200ml', 0, '24,000', '24,000', '#'), 
+            makeProductObj('img/category_1-3.jpg', '포 맨 자작나무 수분 토너 200ml', 0, '24,000', '24,000', '#'),
             makeProductObj('img/category_1-4.jpg', '해풍쑥 진정 토너 300ml', 20, '24,000', '19,200', '#')
         ],
         [
@@ -716,9 +716,16 @@ function makeProductElements(){
 
 function createCarousel(wrapper, radioContainer, frame, tabNum, item, unitInnerNum, unitNum, originalNum, originalWidth, slideNum, slideIndex, frameWidth, unit){
     createUnit(item, unitInnerNum, unitNum, wrapper, unit, slideNum, originalNum);
+    const arrowBtn = document.querySelectorAll('.category-carousel .arrow-btn');
 
     for(let i = 0; i < tabNum; i++){
         originalWidth[i] = wrapper[i].scrollWidth;
+
+        if(originalNum[i] > 1){
+            arrowBtn[i].style.display = 'flex';
+        }else{
+            arrowBtn[i].style.display = 'none';
+        }
     }
 
     //라디오 버튼 생성
@@ -759,6 +766,7 @@ function createCarousel(wrapper, radioContainer, frame, tabNum, item, unitInnerN
         moveSlide(false, slideIndex[i], wrapper[i], frame, frameWidth, originalNum[i], originalWidth[i]);
         slideNum[i] = slideNum[i] + 2   //클론 포함 슬라이드 개수
     }
+
 }
 
 
