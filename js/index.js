@@ -338,20 +338,22 @@ function makeLineCarousel(){
     const tabNum = document.getElementsByClassName('line-type-btn').length;
     let moveWidth;  //슬라이드 이동 길이
     let slideIndex = [];  //현재 인덱스
-    let slideNum;  //슬라이드 개수
+    let slideNum = [];  //슬라이드 개수
     let moveChecker = true; //슬라이드 이동 가능 상태 : true
+    let radioNum = [];
 
     
     moveWidth = frame.clientWidth;
-    slideNum = wrapper[0].childElementCount;
+    
 
     for(let i = 0; i < tabNum; i++){ 
         slideIndex[i] = 1;
+        slideNum[i] = wrapper[i].childElementCount;
     }
 
     //라디오버튼
     for(let i = 0; i < tabNum; i++){   //탭메뉴 모두
-        for(let j = 0; j < slideNum; j++){    //라디오 버튼 생성
+        for(let j = 0; j < slideNum[i]; j++){    //라디오 버튼 생성
             const radioButton = document.createElement('div');
             radioButton.classList.add('default-radio');
             radioContainer[i].appendChild(radioButton);
@@ -360,13 +362,14 @@ function makeLineCarousel(){
             radioButton.addEventListener('click', () => {
                 slideIndex[i] = j + 1;
                 moveLineSlide(true, wrapper[i], moveWidth, slideIndex[i], frame);
-                selectRadio(radioContainer[i], radioNum, slideNum, slideIndex[i]);
+                selectRadio(radioContainer[i], radioNum[i], slideNum[i], slideIndex[i]);
             });
         }
         radioContainer[i].firstChild.classList.add('selected-radio');
+        radioNum[i] = radioContainer[i].childElementCount;
     }
     
-    const radioNum = radioContainer[0].childElementCount;
+
 
     //슬라이드 추가(클론노드)
     for(let i = 0; i < tabNum; i++){
@@ -376,8 +379,9 @@ function makeLineCarousel(){
         wrapper[i].insertBefore(cloneLast, wrapper[i].firstChild);
         wrapper[i].appendChild(cloneFirst);
         moveLineSlide(false, wrapper[i], moveWidth, slideIndex[i], frame);   //처음 위치 세팅
+        slideNum[i] = wrapper[i].childElementCount;  //클론 포함
     }
-    slideNum = wrapper[0].childElementCount;  //클론 포함
+    
 
 
     //좌우 버튼 이벤트
@@ -389,12 +393,12 @@ function makeLineCarousel(){
                 slideIndex[i]--;
                 moveLineSlide(true, wrapper[i], moveWidth, slideIndex[i], frame);
 
-                selectRadio(radioContainer[i], radioNum, slideNum, slideIndex[i]);
+                selectRadio(radioContainer[i], radioNum[i], slideNum[i], slideIndex[i]);
                 
                 setTimeout(() => {
                     moveChecker = true;
                     if(slideIndex[i] === 0){
-                        slideIndex[i] = slideNum - 2;
+                        slideIndex[i] = slideNum[i] - 2;
                         moveLineSlide(false, wrapper[i], moveWidth, slideIndex[i], frame);
                     }
                 }, 500);
@@ -408,11 +412,11 @@ function makeLineCarousel(){
                 slideIndex[i]++;
                 moveLineSlide(true, wrapper[i], moveWidth, slideIndex[i], frame);
 
-                selectRadio(radioContainer[i], radioNum, slideNum, slideIndex[i]);
+                selectRadio(radioContainer[i], radioNum[i], slideNum[i], slideIndex[i]);
                 
                 setTimeout(() => {
                     moveChecker = true;
-                    if(slideIndex[i] === slideNum - 1){
+                    if(slideIndex[i] === slideNum[i] - 1){
                         slideIndex[i] = 1;
                         moveLineSlide(false, wrapper[i], moveWidth, slideIndex[i], frame);
                     }
