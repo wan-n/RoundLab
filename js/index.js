@@ -846,8 +846,6 @@ function addDragEvent(){
     let scrollRate = (scrollBar.clientWidth - scroll.clientWidth) / endWidth;  //스크롤로 전환되는 비율
     let sliderRate =  endWidth / (scrollBar.clientWidth - scroll.clientWidth);  //슬라이더로 전환되는 비율
     let beforeSize = frame.clientWidth;
-    let way = true;  // true : 마우스 클릭 / false : 터치
-    let event = true;  //true : slider  / false : scroll
 
 
 

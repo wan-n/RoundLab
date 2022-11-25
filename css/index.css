@@ -506,7 +506,7 @@ header:hover{
 }
 
 
-#brand-intro a{ 
+#brand-intro .intro-box{ 
     width: 100%;
     height: 100%;
     display: flex;
@@ -986,7 +986,6 @@ header:hover{
     position: relative;
     margin-top: 300px;
     overflow: hidden;
-    padding: 0 32px;
 }
 
 .category-wrapper{
