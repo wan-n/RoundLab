@@ -1,4 +1,7 @@
 makeScrollAnimation();  //헤더 SA
+makeItemLineSA();
+makeBgSA();
+makeReviewSA();
 showHamburgerMenu();   //햄버거메뉴
 showSearchContents();  //검색
 showMyPageContents();  //마이페이지 드롭다운
@@ -191,13 +194,15 @@ function makeItemLineSA(){
     for(let i = 0; i < lineContainer.length; i++){
         lineContainer[i].style.transition = '1s';
         
-        if(lineContainer[i].getBoundingClientRect().top - window.innerHeight < 0){
+        if(lineContainer[i].getBoundingClientRect().top - window.innerHeight < 0 && lineContainer[i].classList.contains('checker')){
             if(i == 1){
                 lineContainer[i].classList.remove('from-right');
             }else{
                 lineContainer[i].classList.remove('from-left');
             }
         }
+
+        lineContainer[i].classList.remove('checker');
     }
 }
 
@@ -251,12 +256,16 @@ function makeBgSA(){
     lineBg.style.transition = '1s';
     categoryBg.style.transition = '1s';
 
-    if(lineBg.getBoundingClientRect().top - window.innerHeight < 0){
+    if(lineBg.getBoundingClientRect().top - window.innerHeight < 0 && lineBg.classList.contains('checker')){
         lineBg.classList.remove('from-left-all');
+
+        lineBg.classList.remove('checker');
     }
 
-    if(categoryBg.getBoundingClientRect().top - window.innerHeight < 0){
+    if(categoryBg.getBoundingClientRect().top - window.innerHeight < 0 && categoryBg.classList.contains('checker')){
         categoryBg.classList.remove('from-left-all');
+
+        categoryBg.classList.remove('checker');
     }
 }
 
@@ -266,12 +275,14 @@ function makeReviewSA(){
 
     for(let i = 0; i < reviewColumns.length; i++){
         reviewColumns[i].style.transition = '.7s';
-        if(reviewFrame.getBoundingClientRect().top - window.innerHeight < 0){
+        if(reviewFrame.getBoundingClientRect().top - window.innerHeight < 0 && reviewFrame.classList.contains('checker')){
             setTimeout(() => {
                 reviewColumns[i].classList.remove('from-bottom');
             }, 200*(i+1));
         }
     }
+
+    reviewFrame.classList.remove('checker');
 }
 
 function copyText(){
