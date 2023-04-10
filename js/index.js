@@ -200,9 +200,8 @@ function makeItemLineSA(){
             }else{
                 lineContainer[i].classList.remove('from-left');
             }
+            lineContainer[i].classList.remove('checker');
         }
-
-        lineContainer[i].classList.remove('checker');
     }
 }
 
@@ -275,14 +274,12 @@ function makeReviewSA(){
 
     for(let i = 0; i < reviewColumns.length; i++){
         reviewColumns[i].style.transition = '.7s';
-        if(reviewFrame.getBoundingClientRect().top - window.innerHeight < 0 && reviewFrame.classList.contains('checker')){
+        if(reviewFrame.getBoundingClientRect().top - window.innerHeight < 0){
             setTimeout(() => {
                 reviewColumns[i].classList.remove('from-bottom');
             }, 200*(i+1));
         }
     }
-
-    reviewFrame.classList.remove('checker');
 }
 
 function copyText(){
